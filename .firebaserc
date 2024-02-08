@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "solifood": {
+      "hosting": {
+        "solifood": [
+          "solifood"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "solifood"
+  }
+}
