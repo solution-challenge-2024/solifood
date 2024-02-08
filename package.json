@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "precommit": "pretty-quick --staged",
-    "prepare": "husky"
+    "prepare": "husky",
+    "emulator": "firebase emulators:start --import=./data --export-on-exit data"
   },
   "private": true,
   "dependencies": {
