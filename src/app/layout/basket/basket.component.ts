@@ -1,12 +1,10 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-basket',
+  selector: "app-basket",
   standalone: true,
   imports: [],
-  templateUrl: './basket.component.html',
-  styleUrl: './basket.component.scss'
+  templateUrl: "./basket.component.html",
+  styleUrl: "./basket.component.scss",
 })
-export class BasketComponent {
-
-}
+export class BasketComponent {}

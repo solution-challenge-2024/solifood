@@ -1,12 +1,10 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-loading',
+  selector: "app-loading",
   standalone: true,
   imports: [],
-  templateUrl: './loading.component.html',
-  styleUrl: './loading.component.scss'
+  templateUrl: "./loading.component.html",
+  styleUrl: "./loading.component.scss",
 })
-export class LoadingComponent {
-
-}
+export class LoadingComponent {}

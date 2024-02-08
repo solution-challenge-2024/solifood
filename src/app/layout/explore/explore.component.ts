@@ -1,12 +1,10 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-explore',
+  selector: "app-explore",
   standalone: true,
   imports: [],
-  templateUrl: './explore.component.html',
-  styleUrl: './explore.component.scss'
+  templateUrl: "./explore.component.html",
+  styleUrl: "./explore.component.scss",
 })
-export class ExploreComponent {
-
-}
+export class ExploreComponent {}
