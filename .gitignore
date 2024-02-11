@@ -48,3 +48,7 @@ Thumbs.db
 
 # Firebase emulator exports
 /data
+
+# Env files
+.env
+environment.*.ts
