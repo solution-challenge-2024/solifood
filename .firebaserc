@@ -1,4 +1,7 @@
 {
+  "projects": {
+    "default": "solifood-ba86d"
+  },
   "targets": {
     "solifood": {
       "hosting": {
@@ -6,9 +9,14 @@
           "solifood"
         ]
       }
+    },
+    "solifood-ba86d": {
+      "hosting": {
+        "solifood": [
+          "solifood-ba86d"
+        ]
+      }
     }
   },
-  "projects": {
-    "default": "solifood"
-  }
+  "etags": {}
 }
