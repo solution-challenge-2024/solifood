@@ -7,7 +7,7 @@ module.exports = {
         primary: "#0E9F6E",
       },
       fontFamily: {
-        sans: ["Product Sans", "sans-serif"],
+        sans: ["Google Sans", "sans-serif"],
       },
     },
     container: {

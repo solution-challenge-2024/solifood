@@ -3,7 +3,16 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.cdnfonts.com/css/google-sans");
+// @import url("https://fonts.cdnfonts.com/css/google-sans");
+
+@font-face {
+  font-family: "Google Sans";
+  src: url("assets/fonts/google-sans.woff2") format("woff2");
+}
+
+body {
+  @apply bg-gray-100 text-gray-900 font-sans;
+}
 
 .firebase-emulator-warning {
   background-color: transparent !important;
