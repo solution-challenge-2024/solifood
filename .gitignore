@@ -43,6 +43,8 @@ Thumbs.db
 
 # Firebase
 .firebase
+.firebaserc
+firebase.json
 *-debug.log
 .runtimeconfig.json
 
