@@ -8,7 +8,6 @@ import { initFlowbite } from "flowbite";
   standalone: true,
   imports: [CommonModule, RouterOutlet],
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnInit {
   title = "solution_challenge";
