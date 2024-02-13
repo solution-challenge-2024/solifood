@@ -3,6 +3,7 @@ import { FormsModule } from "@angular/forms";
 import { Router, RouterLink } from "@angular/router";
 import { AuthenticationService } from "../../core/services/authentication.service";
 import { SigninWithGoogleComponent } from "../../shared/signin-with-google/signin-with-google.component";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-login",
@@ -21,6 +22,7 @@ export class LoginComponent {
   constructor(
     private authentication: AuthenticationService,
     private router: Router,
+    private toastr: ToastrService,
   ) {}
 
   async handleSubmit() {
@@ -34,7 +36,15 @@ export class LoginComponent {
       this.user.password,
     );
     if (result.error) {
-      console.error(result.error);
+      switch (result.error.code) {
+        case "auth/user-not-found" || "auth/wrong-password":
+          this.toastr.error("Oops! The email or password is incorrect");
+          break;
+        default:
+          this.toastr.error("Oops! Something went wrong");
+          break;
+      }
+
       this.buttonsDisabled = false;
       return;
     }

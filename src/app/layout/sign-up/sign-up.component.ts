@@ -3,6 +3,7 @@ import { FormsModule } from "@angular/forms";
 import { Router, RouterLink } from "@angular/router";
 import { AuthenticationService } from "../../core/services/authentication.service";
 import { SigninWithGoogleComponent } from "../../shared/signin-with-google/signin-with-google.component";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-sign-up",
@@ -23,6 +24,7 @@ export class SignUpComponent {
   constructor(
     private authentication: AuthenticationService,
     private router: Router,
+    private toastr: ToastrService,
   ) {}
 
   async handleSubmit() {
@@ -33,7 +35,14 @@ export class SignUpComponent {
     // Sign up
     const result = await this.authentication.signUp(this.user);
     if (result.error || !result.user) {
-      console.error(result.error);
+      switch (result.error.code) {
+        case "auth/email-already-in-use":
+          this.toastr.error("Oops! This email is already in use");
+          break;
+        default:
+          this.toastr.error("Oops! Something went wrong");
+          break;
+      }
       this.buttonsDisabled = false;
       return;
     }

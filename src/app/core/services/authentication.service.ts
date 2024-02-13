@@ -59,7 +59,7 @@ export class AuthenticationService {
         error: null,
         user,
       };
-    } catch (error) {
+    } catch (error: any) {
       return {
         error,
         user: null,
@@ -81,7 +81,7 @@ export class AuthenticationService {
         error: null,
         user: userCredential.user,
       };
-    } catch (error) {
+    } catch (error: any) {
       return {
         error,
         user: null,
