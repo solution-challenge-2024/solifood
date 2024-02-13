@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterOutlet } from "@angular/router";
 import { initFlowbite } from "flowbite";
@@ -7,35 +7,46 @@ import { FooterComponent } from "./shared/footer/footer.component";
 import { Auth } from "@angular/fire/auth";
 import { StorageService } from "./core/data/storage.service";
 import { AuthenticationService } from "./core/services/authentication.service";
+import { LoadingComponent } from "./shared/loading/loading.component";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    HeaderComponent,
+    FooterComponent,
+    LoadingComponent,
+  ],
   templateUrl: "./app.component.html",
 })
-export class AppComponent implements OnInit {
-  title = "solution_challenge";
+export class AppComponent implements OnInit, OnDestroy {
+  auth$!: Subscription;
+  constructor() {}
 
-  constructor(
-    private auth: Auth,
-    private authentication: AuthenticationService,
-    private storage: StorageService,
-  ) {}
+  private authentication = inject(AuthenticationService);
+  private auth = inject(Auth);
+  private storage = inject(StorageService);
 
   ngOnInit() {
     initFlowbite();
 
     this.auth.onAuthStateChanged((user) => {
       if (user) {
-        this.authentication.getUser(user.uid).subscribe((userData) => {
-          console.log(userData);
-          this.storage.user = userData;
-        });
+        this.auth$ = this.authentication
+          .getUser(user.uid)
+          .subscribe((userData) => {
+            this.storage.user = userData;
+          });
         return;
       }
-
-      this.storage.user = null;
+      this.storage.user = undefined;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.auth$.unsubscribe();
   }
 }

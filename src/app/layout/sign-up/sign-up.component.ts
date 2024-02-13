@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { Router, RouterLink } from "@angular/router";
 import { AuthenticationService } from "../../core/services/authentication.service";
@@ -12,20 +12,21 @@ import { ToastrService } from "ngx-toastr";
   templateUrl: "./sign-up.component.html",
 })
 export class SignUpComponent {
+  constructor() {}
+
+  private authentication = inject(AuthenticationService);
+  private router = inject(Router);
+  private toastr = inject(ToastrService);
+
   showPassword = false;
   buttonsDisabled = false;
+
   user = {
     firstName: "",
     lastName: "",
     email: "",
     password: "",
   };
-
-  constructor(
-    private authentication: AuthenticationService,
-    private router: Router,
-    private toastr: ToastrService,
-  ) {}
 
   async handleSubmit() {
     this.buttonsDisabled = true;

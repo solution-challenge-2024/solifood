@@ -6,11 +6,11 @@
       <img src="assets/logo.svg" class="h-8" alt="Solifood Logo" />
     </a>
     <div class="flex items-center md:order-2 space-x-3">
-      @if (user) {
+      @if (storage.user) {
         <app-user-avatar
           [user]="{
-            displayName: user.firstName + ' ' + user.lastName,
-            picture: user.picture
+            displayName: storage.user.firstName + ' ' + storage.user.lastName,
+            picture: storage.user.picture
           }"
           [size]="10"
           [showName]="true"

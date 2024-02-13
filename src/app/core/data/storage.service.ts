@@ -8,6 +8,6 @@ import { Basket } from "../models/basket";
 export class StorageService {
   constructor() {}
 
-  user: User | null = null;
+  user: User | undefined;
   baskets!: Basket[];
 }
