@@ -1,6 +1,6 @@
-import { Injectable, signal } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { User } from "../models/user";
-import { Product } from "../models/product";
+import { Basket } from "../models/basket";
 
 @Injectable({
   providedIn: "root",
@@ -8,6 +8,6 @@ import { Product } from "../models/product";
 export class StorageService {
   constructor() {}
 
-  user!: User;
-  product!: Product;
+  user: User | null = null;
+  baskets!: Basket[];
 }
