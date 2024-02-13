@@ -8,6 +8,7 @@ import { LandingComponent } from "./layout/landing/landing.component";
 import { OrderComponent } from "./layout/order/order.component";
 import { ProfilComponent } from "./layout/profil/profil.component";
 import { SettingComponent } from "./layout/setting/setting.component";
+import { BasketFormComponent } from "./layout/basket-form/basket-form.component";
 
 export const routes: Routes = [
   { path: "", component: LandingComponent },
@@ -19,5 +20,6 @@ export const routes: Routes = [
   { path: "setting", component: SettingComponent },
   { path: "signup", component: SignUpComponent },
   { path: "login", component: LoginComponent },
+  { path: "basket-form", component: BasketFormComponent },
   { path: "**", redirectTo: "" },
 ];
