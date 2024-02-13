@@ -1,27 +1,44 @@
 import { Component } from "@angular/core";
-import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { RouterLink } from "@angular/router";
+import { FormsModule } from "@angular/forms";
+import { Router, RouterLink } from "@angular/router";
+import { AuthenticationService } from "../../core/services/authentication.service";
 
 @Component({
   selector: "app-sign-up",
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, FormsModule],
   templateUrl: "./sign-up.component.html",
 })
 export class SignUpComponent {
   showPassword = false;
   buttonsDisabled = false;
-  signupForm = new FormGroup({
-    firstName: new FormControl(""),
-    lastName: new FormControl(""),
-    email: new FormControl(""),
-    password: new FormControl(""),
-  });
+  user = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  };
 
-  handleSubmit() {
+  constructor(
+    private authentication: AuthenticationService,
+    private router: Router,
+  ) {}
+
+  async handleSubmit() {
     this.buttonsDisabled = true;
 
-    console.log(this.signupForm.value);
+    // TODO: Add form validation
+
+    // Sign up
+    const result = await this.authentication.signUp(this.user);
+    if (result.error || !result.user) {
+      console.error(result.error);
+      this.buttonsDisabled = false;
+      return;
+    }
+
+    // Redirect to explore page
+    this.router.navigate(["/explore"]);
   }
 
   handleGoogleSignIn() {
