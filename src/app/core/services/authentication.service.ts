@@ -39,7 +39,7 @@ export class AuthenticationService {
       // Add display name and photo URL
       await updateProfile(userCredential.user, {
         displayName: `${userData.firstName} ${userData.lastName}`,
-        photoURL: "assets/user.png",
+        photoURL: "assets/user.svg",
       });
 
       // Initialize user
@@ -118,7 +118,7 @@ export class AuthenticationService {
         firstName,
         lastName,
         email: userCredential.user.email,
-        picture: userCredential.user.photoURL || "assets/user.png",
+        picture: userCredential.user.photoURL || "assets/user.svg",
       });
 
       // Save user to the database
@@ -149,7 +149,7 @@ export class AuthenticationService {
       id: "",
       firstName: "Unknown",
       lastName: "",
-      picture: "assets/user.png",
+      picture: "assets/user.svg",
       email: "",
       location: {
         lat: 0,
