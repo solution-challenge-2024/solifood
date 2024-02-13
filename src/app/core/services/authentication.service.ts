@@ -1,8 +1,10 @@
 import { Injectable } from "@angular/core";
 import {
   Auth,
+  GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
   updateProfile,
 } from "@angular/fire/auth";
 import { User, UserSignup } from "../models/user";
@@ -10,6 +12,7 @@ import {
   Firestore,
   Timestamp,
   doc,
+  getDoc,
   onSnapshot,
   setDoc,
 } from "@angular/fire/firestore";
@@ -84,6 +87,49 @@ export class AuthenticationService {
         user: null,
       };
     }
+  }
+
+  public async signInWithGoogle() {
+    // Show Google sign in popup
+    const provider = new GoogleAuthProvider();
+    const userCredential = await signInWithPopup(this.auth, provider);
+
+    // Check if user has an email
+    if (userCredential.user.email === null) {
+      return {
+        error: "Google sign in failed",
+        user: null,
+      };
+    }
+
+    // Check if user exists in the database
+    const userDoc = doc(this.firestore, "users", userCredential.user.uid);
+    const userSnapshot = await getDoc(userDoc);
+
+    if (!userSnapshot.exists()) {
+      // Get first and last name from display name
+      const [firstName, lastName] = userCredential.user.displayName?.split(
+        " ",
+      ) || ["", ""];
+
+      // Initialize user
+      const user = this.initUser({
+        id: userCredential.user.uid,
+        firstName,
+        lastName,
+        email: userCredential.user.email,
+        picture: userCredential.user.photoURL || "assets/user.png",
+      });
+
+      // Save user to the database
+      await setDoc(userDoc, user);
+    }
+
+    // Return user data
+    return {
+      error: null,
+      user: userSnapshot.data() as User,
+    };
   }
 
   public getUser(userId: string): Observable<User> {

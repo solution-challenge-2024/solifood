@@ -2,11 +2,12 @@ import { Component } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { Router, RouterLink } from "@angular/router";
 import { AuthenticationService } from "../../core/services/authentication.service";
+import { SigninWithGoogleComponent } from "../../shared/signin-with-google/signin-with-google.component";
 
 @Component({
   selector: "app-sign-up",
   standalone: true,
-  imports: [RouterLink, FormsModule],
+  imports: [RouterLink, FormsModule, SigninWithGoogleComponent],
   templateUrl: "./sign-up.component.html",
 })
 export class SignUpComponent {
@@ -39,10 +40,5 @@ export class SignUpComponent {
 
     // Redirect to explore page
     this.router.navigate(["/explore"]);
-  }
-
-  handleGoogleSignIn() {
-    this.buttonsDisabled = true;
-    console.log("Sign in with Google");
   }
 }
