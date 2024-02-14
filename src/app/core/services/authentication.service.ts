@@ -134,6 +134,10 @@ export class AuthenticationService {
     };
   }
 
+  public signOut() {
+    this.auth.signOut();
+  }
+
   public getUser(userId: string): Observable<User> {
     return new Observable((observer) => {
       const userDoc = doc(this.firestore, "users", userId);

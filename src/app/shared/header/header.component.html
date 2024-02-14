@@ -15,6 +15,14 @@
           [size]="10"
           [showName]="true"
         />
+
+        <button
+          type="button"
+          class="hover:text-red-600"
+          (click)="handleSignOut()"
+        >
+          <i class="ri-logout-box-r-line text-lg"></i>
+        </button>
       } @else {
         <a routerLink="login" class="hover:text-primary"> Login </a>
         <button
