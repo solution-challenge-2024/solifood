@@ -169,9 +169,15 @@ export class ExploreComponent {
       createdAt: Timestamp.now(),
     },
   ];
+  pagination = {
+    page: 1,
+    pageSize: 12,
+    total: 5,
+  };
   @Output() chipsChange = new EventEmitter<string[]>();
   tags: string[] = [];
   inputValue: string = "";
+  arr = Array;
 
   addTag() {
     if (this.inputValue.trim() && !this.tags.includes(this.inputValue.trim())) {
