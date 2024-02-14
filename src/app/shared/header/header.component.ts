@@ -1,8 +1,9 @@
-import { Component, inject } from "@angular/core";
+import { Component, OnInit, inject } from "@angular/core";
 import { Router, RouterLink } from "@angular/router";
 import { UserAvatarComponent } from "../user-avatar/user-avatar.component";
 import { StorageService } from "../../core/data/storage.service";
 import { AuthenticationService } from "../../core/services/authentication.service";
+import { initFlowbite } from "flowbite";
 
 @Component({
   selector: "app-header",
@@ -10,7 +11,7 @@ import { AuthenticationService } from "../../core/services/authentication.servic
   imports: [RouterLink, UserAvatarComponent],
   templateUrl: "./header.component.html",
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   public storage = inject(StorageService);
   public authentication = inject(AuthenticationService);
   public router = inject(Router);
@@ -24,6 +25,10 @@ export class HeaderComponent {
   ];
 
   constructor() {}
+
+  ngOnInit() {
+    initFlowbite();
+  }
 
   handleSignOut() {
     if (confirm("Are you sure you want to sign out?")) {

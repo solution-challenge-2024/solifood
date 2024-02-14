@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { BasketComponent } from "../basket/basket.component";
 import { Timestamp } from "@angular/fire/firestore";
 import { Basket } from "../../core/models/basket";
 import { FormsModule } from "@angular/forms";
+import { initDrawers } from "flowbite";
 
 @Component({
   selector: "app-explore",
@@ -11,7 +12,7 @@ import { FormsModule } from "@angular/forms";
   templateUrl: "./explore.component.html",
   styleUrl: "./explore.component.scss",
 })
-export class ExploreComponent {
+export class ExploreComponent implements OnInit {
   baskets: Basket[] = [
     {
       id: "1",
@@ -178,6 +179,10 @@ export class ExploreComponent {
   tags: string[] = [];
   inputValue: string = "";
   arr = Array;
+
+  ngOnInit() {
+    initDrawers();
+  }
 
   addTag() {
     if (this.inputValue.trim() && !this.tags.includes(this.inputValue.trim())) {

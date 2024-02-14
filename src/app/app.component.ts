@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterOutlet } from "@angular/router";
-import { initFlowbite } from "flowbite";
 import { Auth } from "@angular/fire/auth";
 import { StorageService } from "./core/data/storage.service";
 import { AuthenticationService } from "./core/services/authentication.service";
@@ -22,8 +21,6 @@ export class AppComponent implements OnInit, OnDestroy {
   private storage = inject(StorageService);
 
   ngOnInit() {
-    initFlowbite();
-
     this.auth.onAuthStateChanged((user) => {
       if (user) {
         this.auth$ = this.authentication
