@@ -12,7 +12,7 @@
       <div class="relative w-full">
         <input
           type="search"
-          id="default-search"
+          id="search"
           class="block w-full px-4 py-2 text-sm border border-gray-300 rounded-md bg-gray-50 focus:ring-green-900"
           placeholder="Search..."
           required
@@ -139,66 +139,65 @@
         <ul class="mx-4">
           <div class="flex items-center mb-2">
             <input
-              id="default-radio-1"
+              id="sort-by-newest"
               type="radio"
               value=""
-              name="default-radio"
+              name="sort-by-radio"
               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
             />
             <label
-              for="default-radio-1"
+              for="sort-by-newest"
               class="ms-2 text-sm font-medium text-gray-900"
             >
-              Newest</label
-            >
+              Newest
+            </label>
           </div>
           <div class="flex items-center mb-2">
             <input
               checked
-              id="default-radio-2"
+              id="sort-by-closest"
               type="radio"
               value=""
-              name="default-radio"
+              name="sort-by-radio"
               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
             />
             <label
-              for="default-radio-2"
+              for="sort-by-closest"
               class="ms-2 text-sm font-medium text-gray-900"
             >
-              Closest</label
-            >
+              Closest
+            </label>
           </div>
-
           <div class="flex items-center mb-2">
             <input
-              id="default-radio-1"
+              id="sort-by-lowest-price"
               type="radio"
               value=""
-              name="default-radio"
+              name="sort-by-radio"
               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
             />
             <label
-              for="default-radio-1"
+              for="sort-by-lowest-price"
               class="ms-2 text-sm font-medium text-gray-900"
             >
-              Lowest price</label
-            >
+              Lowest price
+            </label>
           </div>
           <div class="flex items-center">
             <input
               checked
-              id="default-radio-2"
+              id="sort-by-highest-price"
               type="radio"
               value=""
-              name="default-radio"
+              name="sort-by-radio"
               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
             />
             <label
-              for="default-radio-2"
+              for="sort-by-highest-price"
               class="ms-2 text-sm font-medium text-gray-900"
             >
-              Highest price</label
-            >
+              Highest price
+            </label>
           </div>
         </ul>
       </div>
@@ -226,6 +225,7 @@
           }
           <input
             type="text"
+            id="tags-filter"
             [(ngModel)]="inputValue"
             class="border-none px-2 focus:ring-transparent"
             (keydown.enter)="addTag()"
