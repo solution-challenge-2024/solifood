@@ -4,11 +4,17 @@ import { Router, RouterLink } from "@angular/router";
 import { AuthenticationService } from "../../core/services/authentication.service";
 import { SigninWithGoogleComponent } from "../../shared/signin-with-google/signin-with-google.component";
 import { ToastrService } from "ngx-toastr";
+import { HeaderComponent } from "../../shared/header/header.component";
 
 @Component({
   selector: "app-login",
   standalone: true,
-  imports: [RouterLink, FormsModule, SigninWithGoogleComponent],
+  imports: [
+    RouterLink,
+    FormsModule,
+    SigninWithGoogleComponent,
+    HeaderComponent,
+  ],
   templateUrl: "./login.component.html",
 })
 export class LoginComponent {

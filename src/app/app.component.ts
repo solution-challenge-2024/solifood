@@ -2,24 +2,15 @@ import { Component, OnDestroy, OnInit, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterOutlet } from "@angular/router";
 import { initFlowbite } from "flowbite";
-import { HeaderComponent } from "./shared/header/header.component";
-import { FooterComponent } from "./shared/footer/footer.component";
 import { Auth } from "@angular/fire/auth";
 import { StorageService } from "./core/data/storage.service";
 import { AuthenticationService } from "./core/services/authentication.service";
-import { LoadingComponent } from "./shared/loading/loading.component";
 import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    HeaderComponent,
-    FooterComponent,
-    LoadingComponent,
-  ],
+  imports: [CommonModule, RouterOutlet],
   templateUrl: "./app.component.html",
 })
 export class AppComponent implements OnInit, OnDestroy {
