@@ -105,6 +105,7 @@ export class AuthenticationService {
     // Check if user exists in the database
     const userDoc = doc(this.firestore, "users", userCredential.user.uid);
     const userSnapshot = await getDoc(userDoc);
+    let userData = userSnapshot.data() as User;
 
     if (!userSnapshot.exists()) {
       // Get first and last name from display name
@@ -123,12 +124,13 @@ export class AuthenticationService {
 
       // Save user to the database
       await setDoc(userDoc, user);
+      userData = user;
     }
 
     // Return user data
     return {
       error: null,
-      user: userSnapshot.data() as User,
+      user: userData,
     };
   }
 
