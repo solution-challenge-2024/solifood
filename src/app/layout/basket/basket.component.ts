@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { Basket } from "../../models/basket";
+import { Basket } from "../../core/models/basket";
 
 @Component({
   selector: "app-basket",
