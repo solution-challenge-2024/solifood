@@ -194,38 +194,12 @@
           </div>
         </ul>
       </div>
-      <div>
-        <h6 class="font-sans my-4">Tags</h6>
-        <div
-          class="flex flex-wrap items-center border border-gray-400 rounded-md py-1 px-2"
-        >
-          @for (tag of tags; track tag; let index = $index) {
-            <div>
-              <span
-                class="inline-flex items-center px-2 py-1 me-2 text-sm font-medium text-gray-700 bg-gray-100 rounded"
-              >
-                {{ tag }}
-                <button
-                  type="button"
-                  class="inline-flex items-center p-1 ms-2 text-sm text-gray-500 bg-transparent rounded-sm"
-                  (click)="removeTag(index)"
-                >
-                  <i class="ri-close-line"></i>
-                  <span class="sr-only">Remove badge</span>
-                </button>
-              </span>
-            </div>
-          }
-          <input
-            type="text"
-            id="tags-filter"
-            [(ngModel)]="inputValue"
-            class="border-none px-2 focus:ring-transparent"
-            (keydown.enter)="addTag()"
-            placeholder="Specify some tags"
-          />
-        </div>
-      </div>
+      <app-tags-input
+        label="Tags"
+        placeholder="Specify some tags"
+        [(ngModel)]="tags"
+        name="tags"
+      />
       <app-button class="w-full mt-4"> Apply filters </app-button>
     </div>
   </div>

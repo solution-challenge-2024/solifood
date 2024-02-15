@@ -6,11 +6,18 @@ import { FormsModule } from "@angular/forms";
 import { initDrawers } from "flowbite";
 import { ButtonComponent } from "../../components/button/button.component";
 import { InputComponent } from "../../components/input/input.component";
+import { TagsInputComponent } from "../../components/tags-input/tags-input.component";
 
 @Component({
   selector: "app-explore",
   standalone: true,
-  imports: [BasketComponent, FormsModule, ButtonComponent, InputComponent],
+  imports: [
+    BasketComponent,
+    FormsModule,
+    ButtonComponent,
+    InputComponent,
+    TagsInputComponent,
+  ],
   templateUrl: "./explore.component.html",
   styleUrl: "./explore.component.scss",
 })
@@ -177,29 +184,9 @@ export class ExploreComponent implements OnInit {
     pageSize: 12,
     total: 5,
   };
-  @Output() chipsChange = new EventEmitter<string[]>();
   tags: string[] = [];
-  inputValue: string = "";
-  arr = Array;
 
   ngOnInit() {
     initDrawers();
-  }
-
-  addTag() {
-    if (this.inputValue.trim() && !this.tags.includes(this.inputValue.trim())) {
-      this.tags.push(this.inputValue.trim());
-      this.inputValue = "";
-      this.emitTags();
-    }
-  }
-
-  removeTag(index: number) {
-    this.tags.splice(index, 1);
-    this.emitTags();
-  }
-
-  emitTags() {
-    this.chipsChange.emit([...this.tags]);
   }
 }
