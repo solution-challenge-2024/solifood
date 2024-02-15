@@ -24,7 +24,7 @@
           <i class="ri-logout-box-r-line text-lg"></i>
         </button>
       } @else {
-        <a routerLink="/login" class="hover:text-primary"> Login </a>
+        <a routerLink="/login" class="hover:text-primary-500"> Login </a>
         <app-button routerLink="/signup"> Get started </app-button>
       }
       <button
@@ -49,7 +49,7 @@
           <li>
             <a
               [routerLink]="link.path"
-              class="block py-2 px-3 hover:text-white hover:bg-primary rounded md:hover:bg-transparent md:hover:text-primary md:p-0"
+              class="block py-2 px-3 hover:text-white hover:bg-primary-500 rounded md:hover:bg-transparent md:hover:text-primary-500 md:p-0"
               aria-current="page"
             >
               {{ link.label }}
