@@ -1,10 +1,12 @@
+import colors from "tailwindcss/colors";
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{html,ts}", "./node_modules/flowbite/**/*.js"],
   theme: {
     extend: {
       colors: {
-        primary: "#0E9F6E",
+        primary: colors.emerald,
       },
       fontFamily: {
         sans: ["Google Sans", "sans-serif"],
