@@ -1,0 +1,31 @@
+<div class="mb-4">
+  <label [for]="inputId" class="block mb-2 text-sm font-medium">
+    {{ label }}
+  </label>
+  <div class="relative">
+    @if (preIcon) {
+      <div
+        class="absolute inset-y-0 start-0 flex items-center ps-3.5 cursor-pointer"
+      >
+        <i [class]="preIcon"></i>
+      </div>
+    }
+    <input
+      [type]="input"
+      [name]="name"
+      [id]="inputId"
+      [class]="inputClasses"
+      [placeholder]="placeholder"
+      [required]="required"
+      (input)="onInput($event)"
+    />
+    @if (postIcon) {
+      <div
+        class="absolute inset-y-0 end-0 flex items-center pe-3.5 cursor-pointer"
+        (click)="togglePasswordVisibility()"
+      >
+        <i [class]="postIcon"></i>
+      </div>
+    }
+  </div>
+</div>
