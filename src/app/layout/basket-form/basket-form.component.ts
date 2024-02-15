@@ -2,11 +2,12 @@ import { Component, EventEmitter, Output } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { ButtonComponent } from "../../components/button/button.component";
 import { InputComponent } from "../../components/input/input.component";
+import { FileInputComponent } from "../../components/file-input/file-input.component";
 
 @Component({
   selector: "app-basket-form",
   standalone: true,
-  imports: [FormsModule, ButtonComponent, InputComponent],
+  imports: [FormsModule, ButtonComponent, InputComponent, FileInputComponent],
   templateUrl: "./basket-form.component.html",
   styleUrl: "./basket-form.component.scss",
 })
@@ -19,8 +20,6 @@ export class BasketFormComponent {
   inputTagValue: string = "";
   ingredients: string[] = [];
   inputIngredientValue: string = "";
-  inputSelectedFiles: FileList[] = [];
-  urls: string[] = [];
 
   addTag() {
     if (
@@ -60,22 +59,5 @@ export class BasketFormComponent {
 
   emitIngredients() {
     this.ingredientsChange.emit([...this.ingredients]);
-  }
-
-  onFilesSelected(event: any) {
-    if (event.target.files) {
-      this.inputSelectedFiles.push(event.target.files);
-      for (let i = 0; i < File.length; i++) {
-        let reader = new FileReader();
-        reader.onload = (e: any) => {
-          this.urls.push(e.target.result);
-        };
-        reader.readAsDataURL(event.target.files[i]);
-      }
-    }
-  }
-  removeFiles(index: number) {
-    this.urls.splice(index, 1);
-    this.inputSelectedFiles.splice(index, 1);
   }
 }

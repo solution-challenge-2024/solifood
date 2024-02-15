@@ -15,49 +15,7 @@
   <div>
     <div class="grid lg:grid-cols-2 grid-cols-1 gap-8 h-2/3 mt-8 mb-4">
       <!-- Basket images -->
-      <div>
-        <div class="flex items-center justify-center w-full">
-          <label
-            for="dropzone-file"
-            class="flex flex-col items-center justify-center w-full h-96 border-2 border-gray-300 border-dashed rounded-lg cursor-pointe hover:bg-gray-100 text-gray-500"
-          >
-            <div class="flex flex-col items-center justify-center pt-5 pb-6">
-              <i class="ri-upload-cloud-2-line ri-3x"></i>
-              <p class="mb-2 text-sm">
-                <span class="font-semibold">Click to upload</span> or drag and
-                drop
-              </p>
-              <p class="text-xs">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-            </div>
-            <input
-              id="dropzone-file"
-              type="file"
-              class="hidden"
-              multiple
-              (change)="onFilesSelected($event)"
-            />
-          </label>
-        </div>
-        <div class="flex flex-wrap my-1">
-          @for (url of urls; track url; let index = $index) {
-            <div>
-              <span
-                class="inline-flex items-center px-2 py-1 me-2 text-sm font-medium text-gray-700 bg-gray-100 rounded"
-              >
-                <img [src]="url" class="w-14 h-14" />
-                <button
-                  type="button"
-                  class="inline-flex items-center p-1 ms-2 text-sm text-gray-500 bg-transparent rounded-sm"
-                  (click)="removeFiles(index)"
-                >
-                  <i class="ri-close-line"></i>
-                  <span class="sr-only">Remove badge</span>
-                </button>
-              </span>
-            </div>
-          }
-        </div>
-      </div>
+      <app-file-input [extensions]="['PNG', 'JPG']" [multiple]="true" />
       <div>
         <app-input
           input="text"
