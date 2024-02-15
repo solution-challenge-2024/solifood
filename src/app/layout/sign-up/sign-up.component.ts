@@ -6,6 +6,7 @@ import { SigninWithGoogleComponent } from "../../shared/signin-with-google/signi
 import { ToastrService } from "ngx-toastr";
 import { HeaderComponent } from "../../shared/header/header.component";
 import { ButtonComponent } from "../../components/button/button.component";
+import { InputComponent } from "../../components/input/input.component";
 
 @Component({
   selector: "app-sign-up",
@@ -16,6 +17,7 @@ import { ButtonComponent } from "../../components/button/button.component";
     SigninWithGoogleComponent,
     HeaderComponent,
     ButtonComponent,
+    InputComponent,
   ],
   templateUrl: "./sign-up.component.html",
 })
@@ -37,6 +39,8 @@ export class SignUpComponent {
   };
 
   async handleSubmit() {
+    console.log(this.user);
+    return;
     this.buttonsDisabled = true;
 
     // TODO: Add form validation

@@ -5,11 +5,12 @@ import { Basket } from "../../core/models/basket";
 import { FormsModule } from "@angular/forms";
 import { initDrawers } from "flowbite";
 import { ButtonComponent } from "../../components/button/button.component";
+import { InputComponent } from "../../components/input/input.component";
 
 @Component({
   selector: "app-explore",
   standalone: true,
-  imports: [BasketComponent, FormsModule, ButtonComponent],
+  imports: [BasketComponent, FormsModule, ButtonComponent, InputComponent],
   templateUrl: "./explore.component.html",
   styleUrl: "./explore.component.scss",
 })

@@ -9,20 +9,13 @@
       <label for="search" class="mb-2 text-sm font-sans sr-only">
         Search
       </label>
-      <div class="relative w-full">
-        <input
-          type="search"
-          id="search"
-          class="block w-full px-4 py-2 text-sm border border-gray-300 rounded-md bg-gray-50 focus:ring-green-900"
-          placeholder="Search..."
-          required
-        />
-        <div
-          class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"
-        >
-          <i class="ri-search-2-line"></i>
-        </div>
-      </div>
+      <app-input
+        input="text"
+        name="search"
+        inputId="search"
+        placeholder="Search..."
+        postIcon="ri-search-line"
+      />
       <button
         class="ml-4"
         type="button"

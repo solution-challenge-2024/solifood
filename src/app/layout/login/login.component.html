@@ -9,42 +9,29 @@
       <div class="w-1/2 h-0.5 bg-gray-300"></div>
     </div>
     <form class="space-y-4 md:space-y-6" (ngSubmit)="handleSubmit()">
-      <div>
-        <label for="email" class="block mb-2 text-sm font-medium">
-          Your email
-        </label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          class="bg-gray-50 border border-gray-300 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-          placeholder="example@example.com"
-          required
-          [(ngModel)]="user.email"
-        />
-      </div>
-      <div>
-        <label for="password" class="block mb-2 text-sm font-medium">
-          Password
-        </label>
-        <div class="relative">
-          <div
-            class="absolute inset-y-0 end-0 flex items-center pe-3.5 cursor-pointer"
-            (click)="showPassword = !showPassword"
-          >
-            <i [class]="showPassword ? 'ri-eye-off-line' : 'ri-eye-line'"></i>
-          </div>
-          <input
-            [type]="showPassword ? 'text' : 'password'"
-            name="password"
-            id="password"
-            placeholder="••••••••"
-            class="bg-gray-50 border border-gray-300 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full pe-10 p-2.5"
-            required
-            [(ngModel)]="user.password"
-          />
-        </div>
-      </div>
+      <app-input
+        input="email"
+        name="email"
+        inputId="email"
+        label="Your email"
+        placeholder="example@example.com"
+        [required]="true"
+        preIcon="ri-mail-open-line"
+        [(ngModel)]="user.email"
+        containerClass="mb-4"
+      />
+      <app-input
+        input="password"
+        name="password"
+        inputId="password"
+        label="Password"
+        placeholder="••••••••"
+        [required]="true"
+        postIcon="ri-eye-line"
+        [enablePasswordToggle]="true"
+        [(ngModel)]="user.password"
+        containerClass="mb-4"
+      />
       <div class="flex items-center justify-between">
         <div class="flex items-start">
           <div class="flex items-center h-5">

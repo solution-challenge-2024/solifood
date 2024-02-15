@@ -59,38 +59,26 @@
         </div>
       </div>
       <div>
-        <div class="mb-8">
-          <label
-            for="basket-title"
-            class="block mb-2 text-md font-sans font-bold"
-          >
-            Basket title
-          </label>
-          <input
-            type="text"
-            id="basket-title"
-            class="border border-gray-300 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
-            placeholder="Type the title here"
-            [(ngModel)]="inputTitle"
-            required
-          />
-        </div>
-        <div class="mb-8">
-          <label
-            for="basket-description"
-            class="block mb-2 text-md font-sans font-bold"
-          >
-            Basket description
-          </label>
-          <textarea
-            id="editor"
-            rows="11"
-            class="block p-2.5 w-full text-sm bg-white rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500"
-            placeholder="Write text here..."
-            [(ngModel)]="inputDescription"
-            required
-          ></textarea>
-        </div>
+        <app-input
+          input="text"
+          name="basket-title"
+          inputId="basket-title"
+          label="Basket title"
+          placeholder="Type the title here"
+          [(ngModel)]="inputTitle"
+          [required]="true"
+          containerClass="mb-8"
+        />
+        <app-input
+          input="textarea"
+          name="basket-description"
+          inputId="basket-description"
+          label="Basket description"
+          placeholder="Write text here..."
+          [(ngModel)]="inputDescription"
+          [required]="true"
+          containerClass="mb-8"
+        />
       </div>
     </div>
     <div class="grid lg:grid-cols-12 sm:grid-cols-1 gap-8 h-2/3 my-4">
@@ -161,8 +149,8 @@
         </div>
       </div>
     </div>
-    <div class="grid lg:grid-cols-12 sm:grid-cols-1 gap-8 h-2/3 my-4">
-      <div class="lg:col-span-6 sm:col-span-1">
+    <div class="grid lg:grid-cols-2 grid-cols-1 gap-8 h-2/3 my-4">
+      <div>
         <h6 class="font-sans my-4">Price</h6>
         <div class="flex items-center">
           <button
@@ -194,16 +182,13 @@
           </div>
         </div>
       </div>
-      <div class="lg:col-span-6 sm:col-span-1">
-        <h6 class="font-sans my-4">Will expire at</h6>
-        <label for="expiredTime" class="sr-only">Date</label>
-        <input
-          type="date"
-          id="expiredTime"
-          class="bg-gray-50 border ltr border-gray-300 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          required
-        />
-      </div>
+      <app-input
+        input="date"
+        name="expiredTime"
+        inputId="expiredTime"
+        label="Will expire at"
+        [required]="true"
+      />
     </div>
   </div>
 </div>

@@ -6,6 +6,7 @@ import { SigninWithGoogleComponent } from "../../shared/signin-with-google/signi
 import { ToastrService } from "ngx-toastr";
 import { HeaderComponent } from "../../shared/header/header.component";
 import { ButtonComponent } from "../../components/button/button.component";
+import { InputComponent } from "../../components/input/input.component";
 
 @Component({
   selector: "app-login",
@@ -16,6 +17,7 @@ import { ButtonComponent } from "../../components/button/button.component";
     SigninWithGoogleComponent,
     HeaderComponent,
     ButtonComponent,
+    InputComponent,
   ],
   templateUrl: "./login.component.html",
 })

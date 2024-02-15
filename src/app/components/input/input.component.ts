@@ -23,7 +23,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() input: InputType = "text";
   @Input() size: InputSize = "md";
-  @Input() label: string = "";
+  @Input() label: string | null = null;
   @Input() inputId: string = "";
   @Input() name: string = "";
   @Input() placeholder: string = "";
@@ -32,6 +32,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() preIcon: string | null = null;
   @Input() postIcon: string | null = null;
   @Input() enablePasswordToggle: boolean = false;
+  @Input() containerClass: string = "";
   @Input()
   set disabled(disabled: boolean) {
     this.inputClasses = disabled

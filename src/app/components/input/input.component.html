@@ -1,7 +1,9 @@
-<div class="mb-4">
-  <label [for]="inputId" class="block mb-2 text-sm font-medium">
-    {{ label }}
-  </label>
+<div [className]="containerClass">
+  @if (label) {
+    <label [for]="inputId" class="block mb-2 text-sm font-medium">
+      {{ label }}
+    </label>
+  }
   <div class="relative">
     @if (preIcon) {
       <div
