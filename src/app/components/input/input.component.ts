@@ -27,7 +27,8 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() inputId: string = "";
   @Input() name: string = "";
   @Input() placeholder: string = "";
-  @Input() options: Record<string, string>[] = [];
+  @Input() options: { value: string; label: string }[] = [];
+  @Input() multiple: boolean = false;
   @Input() required: boolean = false;
   @Input() preIcon: string | null = null;
   @Input() postIcon: string | null = null;
@@ -73,13 +74,18 @@ export class InputComponent implements OnInit, ControlValueAccessor {
 
   onInput(event: Event): void {
     this.markAsTouched();
+    if (this.disabled) return;
 
-    if (!this.disabled) {
+    if (this.input === "select" && this.multiple) {
+      const target = event.target as HTMLSelectElement;
+      const selectedOptions = Array.from(target.selectedOptions);
+      this.value = selectedOptions.map((option) => option.value);
+    } else {
       const target = event.target as HTMLInputElement;
       this.value = target.value;
-
-      this.onChange(this.value);
     }
+
+    this.onChange(this.value);
   }
 
   markAsTouched(): void {

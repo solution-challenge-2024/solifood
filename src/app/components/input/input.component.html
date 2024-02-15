@@ -21,6 +21,25 @@
         [rows]="rows"
         (input)="onInput($event)"
       ></textarea>
+    } @else if (input === "select") {
+      <select
+        [id]="inputId"
+        [class]="inputClasses"
+        [required]="required"
+        (change)="onInput($event)"
+        [multiple]="multiple"
+      >
+        @for (option of options; track $index) {
+          <option
+            [value]="option.value"
+            [selected]="
+              multiple ? value?.includes(option.value) : value === option.value
+            "
+          >
+            {{ option.label }}
+          </option>
+        }
+      </select>
     } @else {
       <input
         [type]="input"
