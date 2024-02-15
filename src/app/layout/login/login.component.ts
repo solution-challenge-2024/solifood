@@ -5,6 +5,7 @@ import { AuthenticationService } from "../../core/services/authentication.servic
 import { SigninWithGoogleComponent } from "../../shared/signin-with-google/signin-with-google.component";
 import { ToastrService } from "ngx-toastr";
 import { HeaderComponent } from "../../shared/header/header.component";
+import { ButtonComponent } from "../../components/button/button.component";
 
 @Component({
   selector: "app-login",
@@ -14,6 +15,7 @@ import { HeaderComponent } from "../../shared/header/header.component";
     FormsModule,
     SigninWithGoogleComponent,
     HeaderComponent,
+    ButtonComponent,
   ],
   templateUrl: "./login.component.html",
 })

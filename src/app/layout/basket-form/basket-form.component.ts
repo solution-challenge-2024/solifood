@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Output } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { ButtonComponent } from "../../components/button/button.component";
 
 @Component({
   selector: "app-basket-form",
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, ButtonComponent],
   templateUrl: "./basket-form.component.html",
   styleUrl: "./basket-form.component.scss",
 })

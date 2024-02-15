@@ -63,10 +63,11 @@
           Forgot password?
         </a>
       </div>
-      <button
+      <app-button
         type="submit"
-        class="w-full text-white bg-primary font-medium rounded-lg px-5 py-2.5 text-center disabled:opacity-50"
         [disabled]="buttonsDisabled"
+        size="xl"
+        class="w-full"
       >
         @if (buttonsDisabled) {
           <div class="animate-spin">
@@ -75,7 +76,7 @@
         } @else {
           Sign in
         }
-      </button>
+      </app-button>
       <p class="text-sm font-light text-gray-500">
         Not registered?
         <a

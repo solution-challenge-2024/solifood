@@ -4,11 +4,12 @@ import { UserAvatarComponent } from "../user-avatar/user-avatar.component";
 import { StorageService } from "../../core/data/storage.service";
 import { AuthenticationService } from "../../core/services/authentication.service";
 import { initFlowbite } from "flowbite";
+import { ButtonComponent } from "../../components/button/button.component";
 
 @Component({
   selector: "app-header",
   standalone: true,
-  imports: [RouterLink, UserAvatarComponent],
+  imports: [RouterLink, UserAvatarComponent, ButtonComponent],
   templateUrl: "./header.component.html",
 })
 export class HeaderComponent implements OnInit {
