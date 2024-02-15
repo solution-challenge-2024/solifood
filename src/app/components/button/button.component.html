@@ -1,0 +1,9 @@
+<button type="button" [class]="buttonClasses">
+  @if (preIcon) {
+    <i [class]="preIcon" class="me-2"></i>
+  }
+  <ng-content />
+  @if (postIcon) {
+    <i [class]="postIcon" class="ms-2"></i>
+  }
+</button>
