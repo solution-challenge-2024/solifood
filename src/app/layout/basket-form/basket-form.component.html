@@ -40,73 +40,19 @@
         />
       </div>
     </div>
-    <div class="grid lg:grid-cols-12 sm:grid-cols-1 gap-8 h-2/3 my-4">
-      <div class="lg:col-span-6 sm:col-span-1">
-        <h6 class="font-sans my-4">Tags</h6>
-        <div
-          class="flex flex-wrap items-center border border-gray-300 rounded-md py-1 px-2 bg-white"
-        >
-          @for (tag of tags; track tag; let index = $index) {
-            <div>
-              <span
-                class="inline-flex items-center px-2 py-1 me-2 text-sm font-medium text-gray-700 bg-gray-100 rounded"
-              >
-                {{ tag }}
-                <button
-                  type="button"
-                  class="inline-flex items-center p-1 ms-2 text-sm text-gray-500 bg-transparent rounded-sm"
-                  (click)="removeTag(index)"
-                >
-                  <i class="ri-close-line"></i>
-                  <span class="sr-only">Remove badge</span>
-                </button>
-              </span>
-            </div>
-          }
-          <input
-            type="text"
-            [(ngModel)]="inputTagValue"
-            class="border-none px-2 focus:ring-transparent bg-transparent"
-            (keydown.enter)="addTag()"
-            placeholder="Specify some tags"
-          />
-        </div>
-      </div>
-      <div class="lg:col-span-6 sm:col-span-1">
-        <h6 class="font-sans my-4">Ingredients</h6>
-        <div
-          class="flex flex-wrap items-center border border-gray-300 rounded-md py-1 px-2 bg-white"
-        >
-          @for (
-            ingredient of ingredients;
-            track ingredient;
-            let indexIngredient = $index
-          ) {
-            <div>
-              <span
-                class="inline-flex items-center px-2 py-1 me-2 text-sm font-medium text-gray-700 bg-gray-100 rounded"
-              >
-                {{ ingredient }}
-                <button
-                  type="button"
-                  class="inline-flex items-center p-1 ms-2 text-sm text-gray-500 bg-transparent rounded-sm"
-                  (click)="removeIngredient(indexIngredient)"
-                >
-                  <i class="ri-close-line"></i>
-                  <span class="sr-only">Remove badge</span>
-                </button>
-              </span>
-            </div>
-          }
-          <input
-            type="text"
-            [(ngModel)]="inputIngredientValue"
-            class="border-none px-2 bg-transparent focus:ring-transparent"
-            (keydown.enter)="addIngredient()"
-            placeholder="Specify some ingredients"
-          />
-        </div>
-      </div>
+    <div class="grid lg:grid-cols-2 grid-cols-1 gap-8 h-2/3 my-4">
+      <app-tags-input
+        label="Tags"
+        placeholder="Specify some tags"
+        [(ngModel)]="tags"
+        name="tags"
+      />
+      <app-tags-input
+        label="Ingredients"
+        placeholder="Specify some ingredients"
+        [(ngModel)]="ingredients"
+        name="ingredients"
+      />
     </div>
     <div class="grid lg:grid-cols-2 grid-cols-1 gap-8 h-2/3 my-4">
       <div>
