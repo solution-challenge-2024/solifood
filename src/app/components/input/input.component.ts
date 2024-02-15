@@ -33,6 +33,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() postIcon: string | null = null;
   @Input() enablePasswordToggle: boolean = false;
   @Input() containerClass: string = "";
+  @Input() rows: number = 3;
   @Input()
   set disabled(disabled: boolean) {
     this.inputClasses = disabled
