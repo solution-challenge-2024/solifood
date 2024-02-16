@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { ButtonComponent } from "../../components/button/button.component";
 import { InputComponent } from "../../components/input/input.component";
@@ -18,12 +18,27 @@ import { ChoiceComponent } from "../../components/choice/choice.component";
     ChoiceComponent,
   ],
   templateUrl: "./basket-form.component.html",
-  styleUrl: "./basket-form.component.scss",
 })
 export class BasketFormComponent {
-  @Output() ingredientsChange = new EventEmitter<string[]>();
-  inputTitle: string = "";
-  inputDescription: string = "";
-  tags: string[] = [];
-  ingredients: string[] = [];
+  basket = {
+    title: "",
+    description: "",
+    images: [],
+    tags: [],
+    ingredients: [],
+    price: 0,
+    expiredAt: new Date(),
+    isAvailable: true,
+  };
+
+  loading = false;
+
+  async saveBasket() {
+    if (this.loading) return;
+
+    this.loading = true;
+    console.log(this.basket);
+
+    // TODO: Implement API call to save the basket
+  }
 }

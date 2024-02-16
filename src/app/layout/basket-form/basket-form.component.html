@@ -1,4 +1,4 @@
-<div class="w-[80%] mx-auto my-6">
+<div class="my-16">
   <div class="flex justify-between items-center flex-wrap">
     <h1 class="text-xl font-sans font-bold">Create new basket</h1>
     <div class="flex items-center gap-4">
@@ -7,8 +7,15 @@
         name="isAvailable"
         [multiple]="true"
         [isToggle]="true"
+        [(ngModel)]="basket.isAvailable"
       />
-      <app-button preIcon="ri-send-plane-2-fill"> Save basket </app-button>
+      <app-button
+        preIcon="ri-send-plane-2-fill"
+        [disabled]="loading"
+        (click)="saveBasket()"
+      >
+        {{ loading ? "Processing ..." : "Save basket" }}
+      </app-button>
     </div>
   </div>
   <div>
@@ -22,7 +29,7 @@
           inputId="basket-title"
           label="Basket title"
           placeholder="Type the title here"
-          [(ngModel)]="inputTitle"
+          [(ngModel)]="basket.title"
           [required]="true"
           containerClass="mb-8"
         />
@@ -32,7 +39,7 @@
           inputId="basket-description"
           label="Basket description"
           placeholder="Write text here..."
-          [(ngModel)]="inputDescription"
+          [(ngModel)]="basket.description"
           [required]="true"
           containerClass="mb-8"
           [rows]="11"
@@ -43,13 +50,13 @@
       <app-tags-input
         label="Tags"
         placeholder="Specify some tags"
-        [(ngModel)]="tags"
+        [(ngModel)]="basket.tags"
         name="tags"
       />
       <app-tags-input
         label="Ingredients"
         placeholder="Specify some ingredients"
-        [(ngModel)]="ingredients"
+        [(ngModel)]="basket.ingredients"
         name="ingredients"
       />
     </div>
@@ -61,6 +68,7 @@
         label="Price"
         placeholder="100"
         [required]="true"
+        [(ngModel)]="basket.price"
       >
         <button
           class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:outline-none"
@@ -80,6 +88,7 @@
         inputId="expiredTime"
         label="Will expire at"
         [required]="true"
+        [(ngModel)]="basket.expiredAt"
       />
     </div>
   </div>
