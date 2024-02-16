@@ -5,7 +5,8 @@ export type ButtonColors =
   | "info"
   | "success"
   | "warning"
-  | "danger";
+  | "danger"
+  | "indigo";
 
 export type ButtonSizes = "xs" | "sm" | "md" | "lg" | "xl";
 
@@ -71,6 +72,13 @@ export const buttonColorClasses: Record<ButtonColors, string[]> = {
     "hover:bg-red-800",
     "focus:ring-4",
     "focus:ring-red-300",
+  ],
+  indigo: [
+    "text-white",
+    "bg-indigo-600",
+    "hover:bg-indigo-700",
+    "focus:ring-4",
+    "focus:ring-indigo-300",
   ],
 };
 
