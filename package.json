@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "precommit": "pretty-quick --staged",
     "prepare": "husky",
+    "seed": "npx ts-node ./dbseed.ts",
     "emulator": "firebase emulators:start --import=./data --export-on-exit data"
   },
   "private": true,
@@ -32,8 +33,10 @@
     "@angular-devkit/build-angular": "^17.1.3",
     "@angular/cli": "^17.1.3",
     "@angular/compiler-cli": "^17.1.3",
+    "@faker-js/faker": "^8.4.1",
     "@types/jasmine": "~5.1.0",
     "autoprefixer": "^10.4.17",
+    "firebase-admin": "^12.0.0",
     "husky": "^9.0.10",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
