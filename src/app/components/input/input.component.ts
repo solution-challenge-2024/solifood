@@ -1,4 +1,12 @@
-import { Component, Input, OnInit } from "@angular/core";
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import {
   inputAddonClass,
   inputBaseClass,
@@ -21,7 +29,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
     },
   ],
 })
-export class InputComponent implements OnInit, ControlValueAccessor {
+export class InputComponent
+  implements OnInit, ControlValueAccessor, AfterViewInit
+{
   @Input() input: InputType = "text";
   @Input() size: InputSize = "md";
   @Input() label: string | null = null;
@@ -54,6 +64,11 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   onChange = (value: any) => {};
   onTouched = () => {};
 
+  constructor(
+    private cdRef: ChangeDetectorRef,
+    private ref: ElementRef,
+  ) {}
+
   ngOnInit(): void {
     // Add classes based on the input size
     this.inputClasses += " " + inputSizeClasses[this.size].join(" ");
@@ -70,6 +85,17 @@ export class InputComponent implements OnInit, ControlValueAccessor {
     this.addon && this.input == "textarea"
       ? (this.addonClasses += " py-2.5 items-start")
       : (this.addonClasses += " items-center");
+  }
+
+  ngAfterViewInit(): void {
+    // Get addon via content projection
+    const inputAddon = this.ref.nativeElement.querySelector(
+      "[ngprojectas=input-addon]",
+    );
+    if (!this.addon && inputAddon) {
+      this.inputClasses += " rounded-l-none";
+      this.cdRef.detectChanges();
+    }
   }
 
   togglePasswordVisibility(): void {

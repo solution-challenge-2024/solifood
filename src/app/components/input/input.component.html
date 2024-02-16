@@ -9,6 +9,8 @@
       <span [class]="addonClasses">
         <i class="ri-user-line"></i>
       </span>
+    } @else {
+      <ng-content select="input-addon" #inputAddon></ng-content>
     }
     <div class="relative w-full">
       @if (preIcon) {
