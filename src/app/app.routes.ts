@@ -15,6 +15,7 @@ import { ProfilComponent } from "./layout/profil/profil.component";
 import { SettingComponent } from "./layout/setting/setting.component";
 import { BasketFormComponent } from "./layout/basket-form/basket-form.component";
 import { MainComponent } from "./shared/main/main.component";
+import { BasketComponent } from "./layout/basket/basket.component";
 
 export const routes: Routes = [
   {
@@ -33,6 +34,10 @@ export const routes: Routes = [
       {
         path: "explore",
         component: ExploreComponent,
+      },
+      {
+        path: "basket",
+        component: BasketComponent,
       },
       {
         path: "order",
