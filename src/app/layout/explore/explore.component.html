@@ -1,11 +1,7 @@
-<div class="w-[80%] mx-auto my-6">
-  <div class="grid grid-cols-12">
-    <h1
-      class="col-start-1 col-span-12 sm:col-span-6 text-xl font-sans font-bold"
-    >
-      Explore latest baskets
-    </h1>
-    <div class="flex col-start-1 col-span-12 sm:col-start-10 sm:col-span-3">
+<div class="my-16">
+  <div class="flex justify-between items-center flex-wrap mb-8">
+    <h1 class="text-xl font-sans font-bold">Explore latest baskets</h1>
+    <div class="flex items-center">
       <label for="search" class="mb-2 text-sm font-sans sr-only">
         Search
       </label>
@@ -28,12 +24,9 @@
       </button>
     </div>
   </div>
-  <div class="grid grid-cols-12 gap-4">
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mb-8">
     @for (basket of baskets; track basket.id) {
-      <app-basket
-        class="col-span-12 sm:col-span-4"
-        [basket]="basket"
-      ></app-basket>
+      <app-basket [basket]="basket"></app-basket>
     } @empty {
       Empty list of users
     }

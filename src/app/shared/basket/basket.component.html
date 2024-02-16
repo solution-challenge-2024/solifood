@@ -1,0 +1,63 @@
+@if (basket) {
+  <div class="bg-white border border-gray-200 rounded-lg shadow">
+    <a [routerLink]="'/explore/' + basket.id" class="relative block w-full">
+      <span
+        class="absolute bottom-1 right-1 px-2 py-1 bg-[#00000090] text-white text-xs font-bold rounded-lg"
+      >
+        {{ basket.price }} MAD
+      </span>
+      @if (willExpireSoon()) {
+        <span
+          class="absolute inline-flex items-center gap-2 top-2 left-2 px-2 py-1 bg-red-100 border border-red-800 text-red-800 text-xs font-semibold rounded-lg"
+        >
+          <i class="ri-time-fill text-red-800 ri-lg"></i>
+          Expiring soon
+        </span>
+      }
+      <img
+        class="rounded-t-lg w-full h-[200px] object-cover"
+        [src]="basket.images[0]"
+        alt="basket-image"
+      />
+    </a>
+    <div class="px-4 pt-4 pb-2">
+      <a [routerLink]="'/explore/' + basket.id">
+        <h5 class="text-xl font-semibold tracking-tight mb-4">
+          {{ basket.title }}
+        </h5>
+      </a>
+      <div class="inline-flex items-center mb-4">
+        <img
+          ngOptimizedImage
+          class="w-8 h-8 rounded-full object-cover border"
+          [src]="basket.createdBy.picture"
+          alt="user_image"
+        />
+        <div class="mx-2 text-xs font-medium">
+          <p>
+            {{ basket.createdBy.firstName }} {{ basket.createdBy.lastName }}
+          </p>
+          <div class="flex items-center gap-1">
+            <i class="ri-star-fill text-yellow-300"></i>
+            <p>4.5</p>
+          </div>
+        </div>
+      </div>
+      <p class="text-gray-500 text-sm mb-4">
+        {{ basket.description }}
+      </p>
+      <div
+        class="flex items-center gap-4 py-2 mt-2 border-t border-gray-300 text-gray-500 text-xs font-semibold"
+      >
+        <div class="flex items-center gap-1">
+          <i class="ri-map-pin-line"></i>
+          <p>0.3km</p>
+        </div>
+        <div class="flex items-center gap-1">
+          <i class="ri-time-line"></i>
+          <p>{{ timeAgo(basket.createdAt.toDate()) }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+}

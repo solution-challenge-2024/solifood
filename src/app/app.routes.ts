@@ -8,7 +8,6 @@ import {
 import { HomeComponent } from "./layout/home/home.component";
 import { LoginComponent } from "./layout/login/login.component";
 import { SignUpComponent } from "./layout/sign-up/sign-up.component";
-import { BasketComponent } from "./layout/basket/basket.component";
 import { ExploreComponent } from "./layout/explore/explore.component";
 import { LandingComponent } from "./layout/landing/landing.component";
 import { OrderComponent } from "./layout/order/order.component";
@@ -34,10 +33,6 @@ export const routes: Routes = [
       {
         path: "explore",
         component: ExploreComponent,
-      },
-      {
-        path: "basket",
-        component: BasketComponent,
       },
       {
         path: "order",

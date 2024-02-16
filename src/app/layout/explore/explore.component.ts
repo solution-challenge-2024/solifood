@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { BasketComponent } from "../basket/basket.component";
+import { BasketComponent } from "../../shared/basket/basket.component";
 import { Timestamp } from "@angular/fire/firestore";
 import { Basket } from "../../core/models/basket";
 import { FormsModule } from "@angular/forms";
