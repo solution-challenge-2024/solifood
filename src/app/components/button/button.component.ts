@@ -25,26 +25,29 @@ export class ButtonComponent implements OnInit {
 
   @Input()
   set disabled(value: boolean) {
-    this.buttonClasses = value
-      ? this.buttonClasses.concat("opacity-50", "pointer-events-none")
-      : this.buttonClasses.filter(
-          (c) => c !== "opacity-50" && c !== "pointer-events-none",
-        );
+    if (value) {
+      this.buttonClasses += "opacity-50 pointer-events-none";
+    } else {
+      this.buttonClasses = this.buttonClasses.replace(
+        "opacity-50 pointer-events-none",
+        "",
+      );
+    }
   }
 
-  buttonClasses = buttonBaseClass;
+  buttonClasses = buttonBaseClass.join(" ");
 
   ngOnInit(): void {
     // Add custom classes
-    this.buttonClasses.push(...this.class.split(" "));
+    this.buttonClasses += ` ${this.class}`;
 
     // Add color classes
-    this.buttonClasses.push(...buttonColorClasses[this.color]);
+    this.buttonClasses += ` ${buttonColorClasses[this.color].join(" ")}`;
 
     // Add size classes
-    this.buttonClasses.push(...buttonSizeClasses[this.size]);
+    this.buttonClasses += ` ${buttonSizeClasses[this.size].join(" ")}`;
 
     // Add pill classes
-    this.buttonClasses.push(this.pill ? "rounded-full" : "rounded-lg");
+    this.buttonClasses += this.pill ? " rounded-full" : " rounded-lg";
   }
 }
