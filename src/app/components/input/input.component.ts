@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import {
+  inputAddonClass,
   inputBaseClass,
   InputSize,
   inputSizeClasses,
@@ -32,6 +33,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() required: boolean = false;
   @Input() preIcon: string | null = null;
   @Input() postIcon: string | null = null;
+  @Input() addon: string | null = null;
   @Input() enablePasswordToggle: boolean = false;
   @Input() containerClass: string = "";
   @Input() rows: number = 3;
@@ -43,6 +45,8 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   }
 
   inputClasses = inputBaseClass.join(" ");
+  addonClasses = inputAddonClass.join(" ");
+  iconClasses = "";
   showPassword = false;
   value: any;
 
@@ -55,13 +59,17 @@ export class InputComponent implements OnInit, ControlValueAccessor {
     this.inputClasses += " " + inputSizeClasses[this.size].join(" ");
 
     // Add classes for icons
-    if (this.preIcon) {
-      this.inputClasses += " pl-10";
-    }
+    if (this.preIcon) this.inputClasses += " pl-10";
+    if (this.postIcon) this.inputClasses += " pr-10";
+    this.input == "textarea"
+      ? (this.iconClasses += " py-2.5 items-start")
+      : (this.iconClasses += " items-center");
 
-    if (this.postIcon) {
-      this.inputClasses += " pr-10";
-    }
+    // Add classes for addon
+    if (this.addon) this.inputClasses += " rounded-l-none";
+    this.addon && this.input == "textarea"
+      ? (this.addonClasses += " py-2.5 items-start")
+      : (this.addonClasses += " items-center");
   }
 
   togglePasswordVisibility(): void {

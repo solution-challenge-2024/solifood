@@ -4,60 +4,71 @@
       {{ label }}
     </label>
   }
-  <div class="relative">
-    @if (preIcon) {
-      <div
-        class="absolute inset-y-0 start-0 flex items-center ps-3.5 cursor-pointer"
-      >
-        <i [class]="preIcon"></i>
-      </div>
+  <div class="flex">
+    @if (addon) {
+      <span [class]="addonClasses">
+        <i class="ri-user-line"></i>
+      </span>
     }
-    @if (input === "textarea") {
-      <textarea
-        [id]="inputId"
-        [class]="inputClasses"
-        [placeholder]="placeholder"
-        [required]="required"
-        [rows]="rows"
-        (input)="onInput($event)"
-      ></textarea>
-    } @else if (input === "select") {
-      <select
-        [id]="inputId"
-        [class]="inputClasses"
-        [required]="required"
-        (change)="onInput($event)"
-        [multiple]="multiple"
-      >
-        @for (option of options; track $index) {
-          <option
-            [value]="option.value"
-            [selected]="
-              multiple ? value?.includes(option.value) : value === option.value
-            "
-          >
-            {{ option.label }}
-          </option>
-        }
-      </select>
-    } @else {
-      <input
-        [type]="input"
-        [name]="name"
-        [id]="inputId"
-        [class]="inputClasses"
-        [placeholder]="placeholder"
-        [required]="required"
-        (input)="onInput($event)"
-      />
-    }
-    @if (postIcon) {
-      <div
-        class="absolute inset-y-0 end-0 flex items-center pe-3.5 cursor-pointer"
-        (click)="togglePasswordVisibility()"
-      >
-        <i [class]="postIcon"></i>
-      </div>
-    }
+    <div class="relative w-full">
+      @if (preIcon) {
+        <div
+          class="absolute inset-y-0 start-0 flex ps-3.5 cursor-pointer"
+          [class]="iconClasses"
+        >
+          <i [class]="preIcon"></i>
+        </div>
+      }
+      @if (input === "textarea") {
+        <textarea
+          [id]="inputId"
+          [class]="inputClasses"
+          [placeholder]="placeholder"
+          [required]="required"
+          [rows]="rows"
+          (input)="onInput($event)"
+        ></textarea>
+      } @else if (input === "select") {
+        <select
+          [id]="inputId"
+          [class]="inputClasses"
+          [required]="required"
+          (change)="onInput($event)"
+          [multiple]="multiple"
+        >
+          @for (option of options; track $index) {
+            <option
+              [value]="option.value"
+              [selected]="
+                multiple
+                  ? value?.includes(option.value)
+                  : value === option.value
+              "
+            >
+              {{ option.label }}
+            </option>
+          }
+        </select>
+      } @else {
+        <input
+          [type]="input"
+          [name]="name"
+          [id]="inputId"
+          [class]="inputClasses"
+          [placeholder]="placeholder"
+          [required]="required"
+          (input)="onInput($event)"
+        />
+      }
+      @if (postIcon) {
+        <div
+          class="absolute inset-y-0 end-0 flex pe-3.5 cursor-pointer"
+          [class]="iconClasses"
+          (click)="togglePasswordVisibility()"
+        >
+          <i [class]="postIcon"></i>
+        </div>
+      }
+    </div>
   </div>
 </div>
