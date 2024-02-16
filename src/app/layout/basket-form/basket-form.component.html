@@ -91,5 +91,10 @@
         [(ngModel)]="basket.expiredAt"
       />
     </div>
+    <app-map
+      [center]="mapCenter"
+      [location]="mapCenter"
+      (locationChange)="locationChange($event)"
+    />
   </div>
 </div>
