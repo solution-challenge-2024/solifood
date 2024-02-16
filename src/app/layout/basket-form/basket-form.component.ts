@@ -4,6 +4,7 @@ import { ButtonComponent } from "../../components/button/button.component";
 import { InputComponent } from "../../components/input/input.component";
 import { FileInputComponent } from "../../components/file-input/file-input.component";
 import { TagsInputComponent } from "../../components/tags-input/tags-input.component";
+import { ChoiceComponent } from "../../components/choice/choice.component";
 
 @Component({
   selector: "app-basket-form",
@@ -14,6 +15,7 @@ import { TagsInputComponent } from "../../components/tags-input/tags-input.compo
     InputComponent,
     FileInputComponent,
     TagsInputComponent,
+    ChoiceComponent,
   ],
   templateUrl: "./basket-form.component.html",
   styleUrl: "./basket-form.component.scss",

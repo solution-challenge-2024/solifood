@@ -127,72 +127,17 @@
           </button>
         </div>
       </div>
-      <div>
-        <h6 class="font-sans my-4">Sort By</h6>
-        <ul class="mx-4">
-          <div class="flex items-center mb-2">
-            <input
-              id="sort-by-newest"
-              type="radio"
-              value=""
-              name="sort-by-radio"
-              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-            />
-            <label
-              for="sort-by-newest"
-              class="ms-2 text-sm font-medium text-gray-900"
-            >
-              Newest
-            </label>
-          </div>
-          <div class="flex items-center mb-2">
-            <input
-              checked
-              id="sort-by-closest"
-              type="radio"
-              value=""
-              name="sort-by-radio"
-              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-            />
-            <label
-              for="sort-by-closest"
-              class="ms-2 text-sm font-medium text-gray-900"
-            >
-              Closest
-            </label>
-          </div>
-          <div class="flex items-center mb-2">
-            <input
-              id="sort-by-lowest-price"
-              type="radio"
-              value=""
-              name="sort-by-radio"
-              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-            />
-            <label
-              for="sort-by-lowest-price"
-              class="ms-2 text-sm font-medium text-gray-900"
-            >
-              Lowest price
-            </label>
-          </div>
-          <div class="flex items-center">
-            <input
-              checked
-              id="sort-by-highest-price"
-              type="radio"
-              value=""
-              name="sort-by-radio"
-              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-            />
-            <label
-              for="sort-by-highest-price"
-              class="ms-2 text-sm font-medium text-gray-900"
-            >
-              Highest price
-            </label>
-          </div>
-        </ul>
+      <div class="my-4">
+        <app-choice
+          label="Sort By"
+          [choices]="[
+            { label: 'Newest', value: 'newest' },
+            { label: 'Closest', value: 'closest' },
+            { label: 'Lowest price', value: 'lowest-price' },
+            { label: 'Highest price', value: 'highest-price' }
+          ]"
+          name="sort-by-radio"
+        ></app-choice>
       </div>
       <app-tags-input
         label="Tags"

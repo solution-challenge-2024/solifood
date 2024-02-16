@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { BasketComponent } from "../basket/basket.component";
 import { Timestamp } from "@angular/fire/firestore";
 import { Basket } from "../../core/models/basket";
@@ -7,6 +7,7 @@ import { initDrawers } from "flowbite";
 import { ButtonComponent } from "../../components/button/button.component";
 import { InputComponent } from "../../components/input/input.component";
 import { TagsInputComponent } from "../../components/tags-input/tags-input.component";
+import { ChoiceComponent } from "../../components/choice/choice.component";
 
 @Component({
   selector: "app-explore",
@@ -17,6 +18,7 @@ import { TagsInputComponent } from "../../components/tags-input/tags-input.compo
     ButtonComponent,
     InputComponent,
     TagsInputComponent,
+    ChoiceComponent,
   ],
   templateUrl: "./explore.component.html",
   styleUrl: "./explore.component.scss",

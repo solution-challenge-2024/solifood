@@ -2,13 +2,12 @@
   <div class="flex justify-between items-center flex-wrap">
     <h1 class="text-xl font-sans font-bold">Create new basket</h1>
     <div class="flex items-center gap-4">
-      <label class="flex gap-2 relative items-center cursor-pointer">
-        <input type="checkbox" value="" class="sr-only peer" />
-        <div
-          class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
-        ></div>
-        <span class="text-sm font-medium text-gray-700"> is availabale </span>
-      </label>
+      <app-choice
+        [choices]="[{ label: 'Is available', value: '1' }]"
+        name="isAvailable"
+        [multiple]="true"
+        [isToggle]="true"
+      />
       <app-button preIcon="ri-send-plane-2-fill"> Save basket </app-button>
     </div>
   </div>
