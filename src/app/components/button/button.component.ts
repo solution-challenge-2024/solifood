@@ -26,10 +26,10 @@ export class ButtonComponent implements OnInit {
   @Input()
   set disabled(value: boolean) {
     if (value) {
-      this.buttonClasses += "opacity-50 pointer-events-none";
+      this.buttonClasses += " opacity-50 pointer-events-none";
     } else {
       this.buttonClasses = this.buttonClasses.replace(
-        "opacity-50 pointer-events-none",
+        " opacity-50 pointer-events-none",
         "",
       );
     }
