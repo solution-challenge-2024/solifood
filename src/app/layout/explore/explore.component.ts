@@ -21,7 +21,6 @@ import { ChoiceComponent } from "../../components/choice/choice.component";
     ChoiceComponent,
   ],
   templateUrl: "./explore.component.html",
-  styleUrl: "./explore.component.scss",
 })
 export class ExploreComponent implements OnInit {
   baskets: Basket[] = [
@@ -184,11 +183,25 @@ export class ExploreComponent implements OnInit {
   pagination = {
     page: 1,
     pageSize: 12,
-    total: 5,
+    total: 0,
   };
-  tags: string[] = [];
+
+  searchQuery = "";
+  filters = {
+    maxDistance: 300,
+    sortBy: "newest",
+    tags: [],
+  };
 
   ngOnInit() {
     initDrawers();
+  }
+
+  searchBaskets() {
+    console.log(this.searchQuery);
+  }
+
+  filterBaskets() {
+    console.log(this.filters);
   }
 }
