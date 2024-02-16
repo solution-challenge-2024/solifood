@@ -1,1 +1,73 @@
-<p>order works!</p>
+<div class="grid lg:grid-cols-2 sm:grid-cols-1 gap-8 my-4 py-4 items-start">
+  <div class="">
+    <a href="#" class="relative inline-block">
+      <span
+        class="absolute inline-flex items-center gap-2 top-2 left-2 px-2 py-1 bg-gray-100 border border-red-800 text-red-800 text-xs rounded-lg"
+      >
+        <i class="ri-time-fill text-red-800 ri-lg"></i>
+        Expiring soon
+      </span>
+      <img class="rounded-lg" [src]="basket.images[1]" alt="basket-image" />
+    </a>
+    <h5
+      class="text-xl font-semibold tracking-tight p-4 text-gray-900 border-b-2 border-gray-300"
+    >
+      {{ basket.title }}
+    </h5>
+    <p class="text-gray-500 text-sm text-justify font-sans p-4">
+      {{ basket.description }}
+    </p>
+    <div class="inline-flex items-center p-4">
+      <img
+        ngOptimizedImage
+        class="w-10 h-10 rounded-full"
+        [src]="basket.createdBy.picture"
+        alt="user_image"
+      />
+      <div class="my-4 mx-2">
+        <p class="font-ubuntu text-xs">
+          {{ basket.createdBy.firstName }} {{ basket.createdBy.lastName }}
+        </p>
+        <div class="flex items-center gap-1">
+          <i class="ri-star-fill text-yellow-300"></i>
+          <p class="text-xs font-sans">4.5</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-white rounded-lg p-4 shadow-sm">
+    <div class="py-4 px-3">
+      <h5 class="text-center text-black text-2xl font-bold font-sans">
+        Order Basket
+      </h5>
+    </div>
+    <div class="flex justify-between items-center py-4 px-3 border-y">
+      <h5 class="font-sans text-black">Order Summary</h5>
+      <h5 class="font-sans text-gray-500">{{ basket.price }} MAD</h5>
+    </div>
+    <div class="flex justify-between items-center py-4 px-3">
+      <h5 class="font-sans text-black">Pick In</h5>
+      <a href="" class="font-sans text-gray-500 underline underline-offset-4"
+        >Agadir <span> <i class="ri-arrow-right-s-line"></i></span
+      ></a>
+    </div>
+    <div class="flex justify-between items-center py-4 px-3 border-y">
+      <h5 class="font-sans text-black">Expired At</h5>
+      <h5 class="font-sans text-gray-500">{{ basket.expiredAt }}</h5>
+    </div>
+    <div class="flex flex-col items-center py-4 px-3">
+      <p class="font-sans text-gray-400 text-sm px-8">
+        By making a purchase you agree to the
+      </p>
+      <span class="font-sans text-gray-400 text-sm px-8 underline">
+        Terms of use</span
+      >
+    </div>
+    <div class="py-4">
+      <app-button class="w-full mt-4" color="warning"> Buy with </app-button>
+      <app-button class="w-full mt-4" color="indigo">
+        Pay with Stripe
+      </app-button>
+    </div>
+  </div>
+</div>
