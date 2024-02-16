@@ -39,8 +39,6 @@ export class SignUpComponent {
   };
 
   async handleSubmit() {
-    console.log(this.user);
-    return;
     this.buttonsDisabled = true;
 
     // TODO: Add form validation
