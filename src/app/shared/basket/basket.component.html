@@ -1,5 +1,7 @@
 @if (basket) {
-  <div class="bg-white border border-gray-200 rounded-lg shadow">
+  <div
+    class="bg-white border border-gray-200 rounded-lg shadow h-full flex flex-col"
+  >
     <a [routerLink]="'/explore/' + basket.id" class="relative block w-full">
       <span
         class="absolute bottom-1 right-1 px-2 py-1 bg-[#00000090] text-white text-xs font-bold rounded-lg"
@@ -20,7 +22,7 @@
         alt="basket-image"
       />
     </a>
-    <div class="px-4 pt-4 pb-2">
+    <div class="px-4 pt-4 relative pb-[60px] h-full w-full">
       <a [routerLink]="'/explore/' + basket.id">
         <h5 class="text-xl font-semibold tracking-tight mb-4">
           {{ basket.title }}
@@ -47,7 +49,7 @@
         {{ basket.description }}
       </p>
       <div
-        class="flex items-center gap-4 py-2 mt-2 border-t border-gray-300 text-gray-500 text-xs font-semibold"
+        class="flex items-center gap-4 p-4 border-t border-gray-300 text-gray-500 text-xs font-semibold absolute bottom-0 w-[95%] left-[50%] transform translate-x-[-50%]"
       >
         <div class="flex items-center gap-1">
           <i class="ri-map-pin-line"></i>
