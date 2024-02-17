@@ -7,6 +7,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   limit,
   orderBy,
@@ -39,6 +40,13 @@ export class BasketService {
     const qry = query(this.basketsCollection, ...q);
     const basketsSnapshots = await getDocs(qry);
     return basketsSnapshots.docs.map((doc) => doc.data() as Basket);
+  }
+
+  async getBasket(id: string): Promise<Basket | null> {
+    const docRef = doc(this.firestore, `baskets/${id}`);
+    const docSnap = await getDoc(docRef);
+
+    return docSnap.exists() ? (docSnap.data() as Basket) : null;
   }
 
   createBasket(basket: Basket): Observable<void> {

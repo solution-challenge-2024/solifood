@@ -36,7 +36,7 @@ export const routes: Routes = [
         component: ExploreComponent,
       },
       {
-        path: "basket",
+        path: "explore/:id",
         component: BasketComponent,
       },
       {
