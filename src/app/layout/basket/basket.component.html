@@ -93,7 +93,13 @@
         </ul>
       </div>
       <div class="flex gap-2">
-        <app-button color="primary" class="w-full"> Order basket </app-button>
+        <app-button
+          color="primary"
+          class="w-full"
+          [routerLink]="'/order/' + basket.id"
+        >
+          Order basket
+        </app-button>
         <app-button color="dark" class="w-[40px] h-[40px]">
           <i class="ri-share-line"></i>
         </app-button>

@@ -17,8 +17,7 @@ export class HeaderComponent implements OnInit {
   public authentication = inject(AuthenticationService);
   public router = inject(Router);
   links = [
-    { path: "/explore", label: "Explore" },
-    { path: "/order", label: "Order" },
+    { label: "Explore", path: "/explore" },
     { label: "About", path: "/about" },
     { label: "Contact", path: "/contact" },
   ];

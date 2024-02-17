@@ -4,13 +4,13 @@ import { ButtonComponent } from "../../components/button/button.component";
 import dayjs from "dayjs";
 import { StorageService } from "../../core/data/storage.service";
 import { BasketService } from "../../core/services/basket.service";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { LoadingComponent } from "../../components/loading/loading.component";
 
 @Component({
   selector: "app-basket",
   standalone: true,
-  imports: [ButtonComponent, LoadingComponent],
+  imports: [ButtonComponent, LoadingComponent, RouterLink],
   templateUrl: "./basket.component.html",
 })
 export class BasketComponent implements OnInit {
