@@ -1,5 +1,4 @@
-import { Component, Inject, OnInit } from "@angular/core";
-import { BasketService } from "../../core/services/basket.service";
+import { Component } from "@angular/core";
 
 @Component({
   selector: "app-home",
@@ -8,12 +7,4 @@ import { BasketService } from "../../core/services/basket.service";
   templateUrl: "./home.component.html",
   styleUrl: "./home.component.scss",
 })
-export class HomeComponent implements OnInit {
-  constructor(@Inject(BasketService) private serviceFierbase: BasketService) {}
-
-  ngOnInit(): void {
-    this.serviceFierbase.getBaskets().subscribe((data: any) => {
-      console.log(data);
-    });
-  }
-}
+export class HomeComponent {}

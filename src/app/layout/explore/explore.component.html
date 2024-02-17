@@ -27,13 +27,17 @@
     </div>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mb-8">
-    @for (basket of baskets; track basket.id) {
-      <app-basket [basket]="basket"></app-basket>
-    } @empty {
-      Empty list of baskets
-    }
-  </div>
+  @if (storage.basketsState.baskets.length > 0) {
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mb-8 items-stretch"
+    >
+      @for (basket of storage.basketsState.baskets; track basket.id) {
+        <app-basket [basket]="basket"></app-basket>
+      }
+    </div>
+  } @else {
+    <app-loading content="Loading baskets ..." />
+  }
 
   @if (pagination.total > 0) {
     <div class="flex items-center justify-center">

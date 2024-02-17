@@ -9,5 +9,8 @@ export class StorageService {
   constructor() {}
 
   user: User | undefined;
-  baskets!: Basket[];
+  basketsState = {
+    loaded: false,
+    baskets: [] as Basket[],
+  };
 }

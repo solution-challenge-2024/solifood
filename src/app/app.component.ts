@@ -8,6 +8,7 @@ import { Subscription } from "rxjs";
 import { HeaderComponent } from "./shared/header/header.component";
 import { FooterComponent } from "./shared/footer/footer.component";
 import { LoadingComponent } from "./shared/loading/loading.component";
+import { BasketService } from "./core/services/basket.service";
 
 @Component({
   selector: "app-root",
@@ -26,10 +27,12 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor() {}
 
   private authentication = inject(AuthenticationService);
+  private basket = inject(BasketService);
   private auth = inject(Auth);
   private storage = inject(StorageService);
 
   ngOnInit() {
+    // Load user data
     this.auth.onAuthStateChanged((user) => {
       if (user) {
         this.auth$ = this.authentication
@@ -41,6 +44,14 @@ export class AppComponent implements OnInit, OnDestroy {
       }
       this.storage.user = undefined;
     });
+
+    // Load baskets
+    if (!this.storage.basketsState.loaded) {
+      this.basket.getBaskets().subscribe((baskets) => {
+        this.storage.basketsState.baskets = baskets;
+        this.storage.basketsState.loaded = true;
+      });
+    }
   }
 
   ngOnDestroy(): void {
