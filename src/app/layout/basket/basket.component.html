@@ -1,14 +1,38 @@
 <div class="grid lg:grid-cols-2 grid-cols-1 gap-8 py-4 items-start my-16">
   <div>
-    <a href="#" class="relative inline-block">
-      <span
-        class="absolute inline-flex items-center gap-2 top-2 left-2 px-2 py-1 bg-gray-100 border border-red-800 text-red-800 text-xs rounded-lg"
-      >
-        <i class="ri-time-fill text-red-800 ri-lg"></i>
-        Expiring soon
-      </span>
-      <img class="rounded-lg" [src]="basket.images[1]" alt="basket-image" />
-    </a>
+    <div class="mb-4">
+      <div class="relative mb-4">
+        @if (willExpireSoon()) {
+          <span
+            class="absolute inline-flex items-center gap-2 top-2 left-2 px-2 py-1 bg-gray-100 border border-red-800 text-red-800 text-xs rounded-lg"
+          >
+            <i class="ri-time-fill text-red-800 ri-lg"></i>
+            Expiring soon
+          </span>
+        }
+        <img
+          class="w-full rounded-lg h-[300px] object-cover border border-gray-300"
+          [src]="basket.images[activeImage]"
+          alt=""
+        />
+      </div>
+      <div class="flex gap-4 justify-center flex-wrap">
+        @for (image of basket.images; track $index) {
+          <img
+            class="w-1/6 rounded-lg h-[60px] object-cover border border-gray-300 cursor-pointer"
+            [class]="
+              $index === activeImage
+                ? 'border-primary-500 ring-2 ring-primary-200 p-[2px]'
+                : ''
+            "
+            [src]="image"
+            alt=""
+            (click)="activeImage = $index"
+          />
+        }
+      </div>
+    </div>
+
     <div class="flex justify-between items-center flex-wrap px-4">
       <div class="inline-flex items-center text-xs font-semibold">
         <img
