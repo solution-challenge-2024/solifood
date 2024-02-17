@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { RouterOutlet } from "@angular/router";
+import { NavigationEnd, Router, RouterOutlet } from "@angular/router";
 import { Auth } from "@angular/fire/auth";
 import { StorageService } from "./core/data/storage.service";
 import { AuthenticationService } from "./core/services/authentication.service";
@@ -28,6 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private authentication = inject(AuthenticationService);
   private auth = inject(Auth);
   private storage = inject(StorageService);
+  private router = inject(Router);
 
   ngOnInit() {
     // Load user data
@@ -41,6 +42,13 @@ export class AppComponent implements OnInit, OnDestroy {
         return;
       }
       this.storage.user = undefined;
+    });
+
+    // Scroll to top on route change
+    this.router.events.subscribe((event: any) => {
+      if (event instanceof NavigationEnd) {
+        window.scrollTo(0, 0);
+      }
     });
   }
 
