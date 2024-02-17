@@ -1,8 +1,5 @@
 import { Injectable, inject } from "@angular/core";
-import { environment } from "../../../environments/environment.development";
 import { Basket } from "../models/basket";
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
 import {
   Firestore,
   addDoc,
@@ -10,7 +7,6 @@ import {
   collectionData,
   deleteDoc,
   doc,
-  getDocs,
   setDoc,
 } from "@angular/fire/firestore";
 import { Observable, from } from "rxjs";
@@ -18,31 +14,31 @@ import { Observable, from } from "rxjs";
 @Injectable({
   providedIn: "root",
 })
-export class ProductService {
+export class BasketService {
   firestore = inject(Firestore);
   basketsCollection = collection(this.firestore, "baskets");
 
   // Basket Crud
-  getBaskets(): Observable<any> {
+  getBaskets(): Observable<Basket[]> {
     return collectionData(this.basketsCollection, {
       idField: "id",
-    }) as Observable<any>;
+    }) as Observable<Basket[]>;
   }
 
-  createBasket(basket: any): Observable<any> {
+  createBasket(basket: Basket): Observable<void> {
     const promise = addDoc(this.basketsCollection, basket).then((resp) => {
       (resp: any) => resp.id;
     });
     return from(promise);
   }
 
-  deleteBasket(basket: any): Observable<any> {
+  deleteBasket(basket: Basket): Observable<void> {
     const docRef = doc(this.firestore, `baskets/${basket.id}`);
     const promise = deleteDoc(docRef);
     return from(promise);
   }
 
-  updateBasket(basket: any): Observable<any> {
+  updateBasket(basket: Basket): Observable<void> {
     const docRef = doc(this.firestore, `baskets/${basket.id}`);
     const promise = setDoc(docRef, basket);
     return from(promise);

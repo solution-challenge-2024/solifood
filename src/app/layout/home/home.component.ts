@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from "@angular/core";
-import { Timestamp } from "@angular/fire/firestore";
-import { ProductService } from "../../core/services/product.service";
+import { BasketService } from "../../core/services/basket.service";
 
 @Component({
   selector: "app-home",
@@ -10,9 +9,7 @@ import { ProductService } from "../../core/services/product.service";
   styleUrl: "./home.component.scss",
 })
 export class HomeComponent implements OnInit {
-  constructor(
-    @Inject(ProductService) private serviceFierbase: ProductService,
-  ) {}
+  constructor(@Inject(BasketService) private serviceFierbase: BasketService) {}
 
   ngOnInit(): void {
     this.serviceFierbase.getBaskets().subscribe((data: any) => {
