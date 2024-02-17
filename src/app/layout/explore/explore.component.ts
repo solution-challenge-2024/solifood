@@ -8,6 +8,9 @@ import { TagsInputComponent } from "../../components/tags-input/tags-input.compo
 import { ChoiceComponent } from "../../components/choice/choice.component";
 import { LoadingComponent } from "../../components/loading/loading.component";
 import { StorageService } from "../../core/data/storage.service";
+import { BasketService } from "../../core/services/basket.service";
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
+import { NoDataComponent } from "../../components/no-data/no-data.component";
 
 @Component({
   selector: "app-explore",
@@ -20,17 +23,16 @@ import { StorageService } from "../../core/data/storage.service";
     TagsInputComponent,
     ChoiceComponent,
     LoadingComponent,
+    InfiniteScrollModule,
+    NoDataComponent,
   ],
   templateUrl: "./explore.component.html",
 })
 export class ExploreComponent implements OnInit {
   public storage = inject(StorageService);
+  private basket = inject(BasketService);
 
-  pagination = {
-    page: 1,
-    pageSize: 12,
-    total: 0,
-  };
+  basketsLoading = false;
 
   searchQuery = "";
   filters = {
@@ -41,6 +43,44 @@ export class ExploreComponent implements OnInit {
 
   ngOnInit() {
     initDrawers();
+
+    // Load baskets
+    if (!this.storage.basketsState.loaded) {
+      this.loadBaskets();
+    }
+  }
+
+  async handleScroll() {
+    if (this.basketsLoading || this.storage.basketsState.endReached) return;
+
+    this.basketsLoading = true;
+    await this.loadBaskets();
+    this.basketsLoading = false;
+  }
+
+  async loadBaskets() {
+    // Get last result to start after
+    const basketsCount = this.storage.basketsState.baskets.length;
+    const lastResult =
+      basketsCount > 0
+        ? this.storage.basketsState.baskets[basketsCount - 1]
+        : null;
+
+    // Get baskets
+    const baskets = await this.basket.getBaskets(lastResult);
+
+    // If no baskets, end reached
+    if (baskets.length === 0) {
+      this.storage.basketsState.endReached = true;
+      return;
+    }
+
+    // Add baskets to storage
+    this.storage.basketsState.baskets = [
+      ...this.storage.basketsState.baskets,
+      ...baskets,
+    ];
+    this.storage.basketsState.loaded = true;
   }
 
   searchBaskets() {

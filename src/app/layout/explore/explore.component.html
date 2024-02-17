@@ -30,56 +30,27 @@
   @if (storage.basketsState.baskets.length > 0) {
     <div
       class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mb-8 items-stretch"
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="50"
+      (scrolled)="handleScroll()"
     >
       @for (basket of storage.basketsState.baskets; track basket.id) {
         <app-basket [basket]="basket"></app-basket>
       }
     </div>
+
+    @if (basketsLoading) {
+      <div class="flex justify-center items-center p-4">
+        <div class="animate-spin">
+          <i class="ri-loader-4-line"></i>
+        </div>
+      </div>
+    }
+  } @else if (storage.basketsState.endReached) {
+    <app-no-data icon="ri-shopping-basket-2-line" message="No baskets found" />
   } @else {
     <app-loading content="Loading baskets ..." />
-  }
-
-  @if (pagination.total > 0) {
-    <div class="flex items-center justify-center">
-      <nav aria-label="Page navigation example">
-        <ul class="flex items-center -space-x-px h-10">
-          <li>
-            <a
-              class="flex items-center justify-center px-3 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700"
-            >
-              <span class="sr-only">Previous</span>
-              <i class="ri-arrow-left-s-line"></i>
-            </a>
-          </li>
-          @for (
-            page of [].constructor(pagination.total);
-            track page;
-            let index = $index
-          ) {
-            <li>
-              <a
-                class="flex items-center justify-center px-3 h-10 w-10 ms-0 leading-tight text-gray-500 border border-e-0 border-gray-300 cursor-pointer"
-                [class]="
-                  index === pagination.page
-                    ? 'bg-green-50 text-primary-500 hover\:bg-green-100'
-                    : 'bg-white hover\:bg-gray-100 hover\:text-gray-700'
-                "
-              >
-                {{ index + 1 }}
-              </a>
-            </li>
-          }
-          <li>
-            <a
-              class="flex items-center justify-center px-3 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700"
-            >
-              <span class="sr-only">Next</span>
-              <i class="ri-arrow-right-s-line"></i>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
   }
 
   <!-- drawer component -->

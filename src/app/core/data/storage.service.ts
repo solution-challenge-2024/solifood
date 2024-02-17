@@ -12,5 +12,6 @@ export class StorageService {
   basketsState = {
     loaded: false,
     baskets: [] as Basket[],
+    endReached: false,
   };
 }

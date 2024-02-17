@@ -26,6 +26,7 @@
     "dayjs": "^1.11.10",
     "flowbite": "^2.2.1",
     "leaflet": "^1.9.4",
+    "ngx-infinite-scroll": "^17.0.0",
     "ngx-toastr": "^18.0.0",
     "remixicon": "^4.1.0",
     "rxjs": "~7.8.0",
