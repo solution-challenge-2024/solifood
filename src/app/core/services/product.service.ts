@@ -1,58 +1,50 @@
-import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { environment } from "../../../environments/environment.development";
 import { Basket } from "../models/basket";
-import { User } from "@angular/fire/auth";
-import { Observable } from "rxjs";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import {
+  Firestore,
+  addDoc,
+  collection,
+  collectionData,
+  deleteDoc,
+  doc,
+  getDocs,
+  setDoc,
+} from "@angular/fire/firestore";
+import { Observable, from } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class ProductService {
-  private http = inject(HttpClient);
-  private url = environment.apiUrl;
-
-  constructor() {}
+  firestore = inject(Firestore);
+  basketsCollection = collection(this.firestore, "baskets");
 
   // Basket Crud
-  getBaskets() {
-    return this.http.get("/api/basket");
+  getBaskets(): Observable<any> {
+    return collectionData(this.basketsCollection, {
+      idField: "id",
+    }) as Observable<any>;
   }
 
-  getBasketById(id: number): Observable<any> {
-    return this.http.get(`${this.url}/basket/${id}`);
+  createBasket(basket: any): Observable<any> {
+    const promise = addDoc(this.basketsCollection, basket).then((resp) => {
+      (resp: any) => resp.id;
+    });
+    return from(promise);
   }
 
-  createBasket(basket: Basket): Observable<any> {
-    return this.http.post(`${this.url}/basket`, basket);
+  deleteBasket(basket: any): Observable<any> {
+    const docRef = doc(this.firestore, `baskets/${basket.id}`);
+    const promise = deleteDoc(docRef);
+    return from(promise);
   }
 
-  updateBasket(basket: Basket): Observable<any> {
-    return this.http.put(`${this.url}/basket/${basket.id}`, basket);
-  }
-
-  deleteBasket(id: number): Observable<any> {
-    return this.http.delete(`${this.url}/basket/${id}`);
-  }
-
-  // Orders Crud
-  getOrders(user: User): Observable<any> {
-    return this.http.get(`${this.url}/orders`);
-  }
-
-  getOrderById(id: number): Observable<any> {
-    return this.http.get(`${this.url}/orders/${id}`);
-  }
-
-  createOrder(order: any): Observable<any> {
-    return this.http.post(`${this.url}/orders`, order);
-  }
-
-  updateOrder(order: any): Observable<any> {
-    return this.http.put(`${this.url}/orders/${order.id}`, order);
-  }
-
-  deleteOrder(id: number): Observable<any> {
-    return this.http.delete(`${this.url}/orders/${id}`);
+  updateBasket(basket: any): Observable<any> {
+    const docRef = doc(this.firestore, `baskets/${basket.id}`);
+    const promise = setDoc(docRef, basket);
+    return from(promise);
   }
 }
