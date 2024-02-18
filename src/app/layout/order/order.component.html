@@ -1,7 +1,7 @@
 @if (basket) {
   <div class="grid lg:grid-cols-2 sm:grid-cols-1 gap-8 my-4 py-4 items-start">
     <div class="">
-      <a href="#" class="relative inline-block">
+      <div class="relative">
         @if (willExpireSoon()) {
           <span
             class="absolute inline-flex items-center gap-2 top-2 left-2 px-2 py-1 bg-gray-100 border border-red-800 text-red-800 text-xs rounded-lg"
@@ -10,8 +10,12 @@
             Expiring soon
           </span>
         }
-        <img class="rounded-lg" [src]="basket.images[0]" alt="basket-image" />
-      </a>
+        <img
+          class="rounded-lg w-full object-cover h-[300px]"
+          [src]="basket.images[0]"
+          alt="basket-image"
+        />
+      </div>
       <h5
         class="text-xl font-semibold tracking-tight p-4 text-gray-900 border-b-2 border-gray-300"
       >
