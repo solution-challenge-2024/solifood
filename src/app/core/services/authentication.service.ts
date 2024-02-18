@@ -177,4 +177,9 @@ export class AuthenticationService {
       },
     };
   }
+
+  public async getAccessToken() {
+    const token = await this.auth.currentUser?.getIdToken();
+    return token;
+  }
 }

@@ -60,19 +60,16 @@
           {{ formatDate(basket.expiredAt.toDate()) }}
         </h5>
       </div>
-      <div class="flex flex-col items-center py-4 px-3">
+      <div class="flex flex-col items-center pt-4 px-3">
         <p class="font-sans text-gray-400 text-sm px-8">
           By making a purchase you agree to the
         </p>
         <span class="font-sans text-gray-400 text-sm px-8 underline">
-          Terms of use</span
-        >
+          Terms of use
+        </span>
       </div>
       <div class="py-4">
-        <app-button class="w-full mt-4" color="warning"> Buy with </app-button>
-        <app-button class="w-full mt-4" color="indigo">
-          Pay with Stripe
-        </app-button>
+        <ngx-paypal [config]="payPalConfig"></ngx-paypal>
       </div>
     </div>
   </div>

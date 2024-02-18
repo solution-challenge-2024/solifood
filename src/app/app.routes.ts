@@ -16,6 +16,7 @@ import { SettingComponent } from "./layout/setting/setting.component";
 import { BasketFormComponent } from "./layout/basket-form/basket-form.component";
 import { MainComponent } from "./shared/main/main.component";
 import { BasketComponent } from "./layout/basket/basket.component";
+import { AfterPaymentComponent } from "./layout/after-payment/after-payment.component";
 
 export const routes: Routes = [
   {
@@ -54,6 +55,10 @@ export const routes: Routes = [
       {
         path: "basket-form",
         component: BasketFormComponent,
+      },
+      {
+        path: "payment-success",
+        component: AfterPaymentComponent,
       },
     ],
   },
