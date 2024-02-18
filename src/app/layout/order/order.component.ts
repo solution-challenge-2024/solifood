@@ -56,8 +56,6 @@ export class OrderComponent implements OnInit {
         return response.orderId;
       },
       onClientAuthorization: (data) => {
-        console.log("OnClientAuthorization", data);
-
         // Redirect to basket details page
         this.router.navigate(["/payment-success"]);
       },
