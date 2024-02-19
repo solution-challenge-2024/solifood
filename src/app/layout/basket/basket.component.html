@@ -1,110 +1,113 @@
 @if (basket) {
-  <div class="grid lg:grid-cols-2 grid-cols-1 gap-8 py-4 items-start my-16">
-    <div>
-      <div class="mb-4">
-        <div class="relative mb-4">
-          @if (willExpireSoon()) {
-            <span
-              class="absolute inline-flex items-center gap-2 top-2 left-2 px-2 py-1 bg-gray-100 border border-red-800 text-red-800 text-xs rounded-lg"
-            >
-              <i class="ri-time-fill text-red-800 ri-lg"></i>
-              Expiring soon
-            </span>
-          }
-          <img
-            class="w-full rounded-lg h-[300px] object-cover border border-gray-300"
-            [src]="basket.images[activeImage]"
-            alt=""
-          />
-        </div>
-        <div class="flex gap-4 justify-center flex-wrap">
-          @for (image of basket.images; track $index) {
+  <div class="my-16">
+    <div class="grid lg:grid-cols-2 grid-cols-1 gap-8 py-4 items-start">
+      <div>
+        <div class="mb-4">
+          <div class="relative mb-4">
+            @if (willExpireSoon()) {
+              <span
+                class="absolute inline-flex items-center gap-2 top-2 left-2 px-2 py-1 bg-gray-100 border border-red-800 text-red-800 text-xs rounded-lg"
+              >
+                <i class="ri-time-fill text-red-800 ri-lg"></i>
+                Expiring soon
+              </span>
+            }
             <img
-              class="w-1/6 rounded-lg h-[60px] object-cover border border-gray-300 cursor-pointer"
-              [class]="
-                $index === activeImage
-                  ? 'border-primary-500 ring-2 ring-primary-200 p-[2px]'
-                  : ''
-              "
-              [src]="image"
+              class="w-full rounded-lg h-[300px] object-cover border border-gray-300"
+              [src]="basket.images[activeImage]"
               alt=""
-              (click)="activeImage = $index"
             />
-          }
-        </div>
-      </div>
-
-      <div class="flex justify-between items-center flex-wrap px-4">
-        <div class="inline-flex items-center text-xs font-semibold">
-          <img
-            ngOptimizedImage
-            class="w-10 h-10 rounded-full object-cover border"
-            [src]="basket.createdBy.picture"
-            alt="user_image"
-          />
-          <div class="my-4 mx-2">
-            <p>
-              {{ basket.createdBy.firstName }} {{ basket.createdBy.lastName }}
-            </p>
-            <div class="flex items-center gap-1">
-              <i class="ri-star-fill text-yellow-300"></i>
-              <p>4.5</p>
-            </div>
+          </div>
+          <div class="flex gap-4 justify-center flex-wrap">
+            @for (image of basket.images; track $index) {
+              <img
+                class="w-1/6 rounded-lg h-[60px] object-cover border border-gray-300 cursor-pointer"
+                [class]="
+                  $index === activeImage
+                    ? 'border-primary-500 ring-2 ring-primary-200 p-[2px]'
+                    : ''
+                "
+                [src]="image"
+                alt=""
+                (click)="activeImage = $index"
+              />
+            }
           </div>
         </div>
-        <p class="text-primary-500 font-semibold">{{ basket.price }} MAD</p>
-      </div>
-      <div class="border-t-2 border-gray-300 mb-4"></div>
-      <div class="px-4">
-        <p class="font-semibold mb-2">Tags :</p>
-        @for (tag of basket.tags; track $index) {
-          <span
-            class="inline-block text-sm bg-white border border-gray-300 rounded-lg py-2 px-3 me-2"
-          >
-            {{ tag }}
-          </span>
-        }
-      </div>
-    </div>
-    <div>
-      <h5 class="text-2xl font-semibold mb-4">{{ basket.title }}</h5>
-      <div class="border-t-2 border-gray-300 mb-4"></div>
-      <div
-        class="flex items-center gap-4 px-2 mb-4 text-gray-500 text-xs font-semibold"
-      >
-        <div class="flex items-center gap-1">
-          <i class="ri-map-pin-line"></i>
-          <p>0.3km</p>
+
+        <div class="flex justify-between items-center flex-wrap px-4">
+          <div class="inline-flex items-center text-xs font-semibold">
+            <img
+              ngOptimizedImage
+              class="w-10 h-10 rounded-full object-cover border"
+              [src]="basket.createdBy.picture"
+              alt="user_image"
+            />
+            <div class="my-4 mx-2">
+              <p>
+                {{ basket.createdBy.firstName }} {{ basket.createdBy.lastName }}
+              </p>
+              <div class="flex items-center gap-1">
+                <i class="ri-star-fill text-yellow-300"></i>
+                <p>4.5</p>
+              </div>
+            </div>
+          </div>
+          <p class="text-primary-500 font-semibold">{{ basket.price }} MAD</p>
         </div>
-        <div class="flex items-center gap-1">
-          <i class="ri-time-line"></i>
-          <p>{{ timeAgo(basket.createdAt.toDate()) }}</p>
-        </div>
-      </div>
-      <p class="text-gray-500 text-sm mb-4 px-2">{{ basket.description }}</p>
-      <div class="px-2 mb-4">
-        <p class="font-semibold mb-2">Ingredients :</p>
-        <ul class="list-disc ps-8">
-          @for (ingredient of basket.ingredients; track $index) {
-            <li class="text-sm mb-2">
-              {{ ingredient }}
-            </li>
+        <div class="border-t-2 border-gray-300 mb-4"></div>
+        <div class="px-4">
+          <p class="font-semibold mb-2">Tags :</p>
+          @for (tag of basket.tags; track $index) {
+            <span
+              class="inline-block text-sm bg-white border border-gray-300 rounded-lg py-2 px-3 me-2"
+            >
+              {{ tag }}
+            </span>
           }
-        </ul>
+        </div>
       </div>
-      <div class="flex gap-2">
-        <app-button
-          color="primary"
-          class="w-full"
-          [routerLink]="'/order/' + basket.id"
+      <div>
+        <h5 class="text-2xl font-semibold mb-4">{{ basket.title }}</h5>
+        <div class="border-t-2 border-gray-300 mb-4"></div>
+        <div
+          class="flex items-center gap-4 px-2 mb-4 text-gray-500 text-xs font-semibold"
         >
-          Order basket
-        </app-button>
-        <app-button color="dark" class="w-[40px] h-[40px]">
-          <i class="ri-share-line"></i>
-        </app-button>
+          <div class="flex items-center gap-1">
+            <i class="ri-map-pin-line"></i>
+            <p>0.3km</p>
+          </div>
+          <div class="flex items-center gap-1">
+            <i class="ri-time-line"></i>
+            <p>{{ timeAgo(basket.createdAt.toDate()) }}</p>
+          </div>
+        </div>
+        <p class="text-gray-500 text-sm mb-4 px-2">{{ basket.description }}</p>
+        <div class="px-2 mb-4">
+          <p class="font-semibold mb-2">Ingredients :</p>
+          <ul class="list-disc ps-8">
+            @for (ingredient of basket.ingredients; track $index) {
+              <li class="text-sm mb-2">
+                {{ ingredient }}
+              </li>
+            }
+          </ul>
+        </div>
+        <div class="flex gap-2">
+          <app-button
+            color="primary"
+            class="w-full"
+            [routerLink]="'/order/' + basket.id"
+          >
+            Order basket
+          </app-button>
+          <app-button color="dark" class="w-[40px] h-[40px]">
+            <i class="ri-share-line"></i>
+          </app-button>
+        </div>
       </div>
     </div>
+    <app-map [center]="mapCenter" [location]="mapCenter" />
   </div>
 } @else {
   <app-loading content="Loading basket ..." />

@@ -6,11 +6,12 @@ import { StorageService } from "../../core/data/storage.service";
 import { BasketService } from "../../core/services/basket.service";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { LoadingComponent } from "../../components/loading/loading.component";
+import { MapComponent } from "../../components/map/map.component";
 
 @Component({
   selector: "app-basket",
   standalone: true,
-  imports: [ButtonComponent, LoadingComponent, RouterLink],
+  imports: [ButtonComponent, LoadingComponent, RouterLink, MapComponent],
   templateUrl: "./basket.component.html",
 })
 export class BasketComponent implements OnInit {
@@ -20,6 +21,7 @@ export class BasketComponent implements OnInit {
   private router = inject(Router);
 
   basket: Basket | null = null;
+  mapCenter = { latitude: 0, longitude: 0 };
   activeImage = 0;
 
   async ngOnInit() {
@@ -34,7 +36,14 @@ export class BasketComponent implements OnInit {
     // If still not found, redirect to not found
     if (!this.basket) {
       this.router.navigate(["/not-found"]);
+      return;
     }
+
+    // Set the map center to the basket location
+    this.mapCenter = {
+      latitude: this.basket.location.lat,
+      longitude: this.basket.location.lon,
+    };
   }
 
   willExpireSoon(): boolean {
