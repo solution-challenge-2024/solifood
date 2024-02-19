@@ -1,1 +1,90 @@
-<p>profil works!</p>
+<div class="my-14">
+  <div
+    class="relative flex flex-col justify-center items-center bg-white rounded-lg p-4"
+  >
+    <app-button color="dark" class="w-[40px] h-[40px] absolute top-2 right-2">
+      <i class="ri-share-line"></i>
+    </app-button>
+    @if (storage.user) {
+      <img
+        class="w-32 h-32 rounded-full my-2"
+        [src]="storage.user.picture"
+        alt="user_profile"
+      />
+      <h5 class="font-sans my-2">
+        {{ storage.user.firstName }} {{ storage.user.lastName }}
+      </h5>
+      <div class="flex items-center gap-1 my-2">
+        <i class="ri-star-fill text-yellow-300"></i>
+        <p>4.5</p>
+      </div>
+      <div
+        class="flex flex-wrap items-center gap-4 text-sm font-sans my-2 mx-auto"
+      >
+        <div>
+          <i class="ri-map-pin-line"></i><span class="mx-1">20 km Away</span>
+        </div>
+        <div>
+          <i class="ri-star-line"></i> <span class="mx-1">30 Ratings</span>
+        </div>
+        <div>
+          <i class="ri-time-line"></i
+          ><span class="mx-1"
+            >Joined at {{ joinedAt(storage.user.joinedAt.toDate()) }}</span
+          >
+        </div>
+        <div>
+          <i class="ri-archive-line"></i><span class="mx-1">30 listings</span>
+        </div>
+      </div>
+    }
+  </div>
+  <div class="my-16">
+    <div class="flex justify-between items-center flex-wrap mb-8">
+      <h1 class="text-xl font-sans font-bold">Listed baskets</h1>
+      <div class="flex items-center">
+        <label for="search" class="mb-2 text-sm font-sans sr-only">
+          Search
+        </label>
+        <app-input
+          input="text"
+          name="search"
+          inputId="search"
+          placeholder="Search..."
+          postIcon="ri-search-line"
+          [(ngModel)]="searchQuery"
+          (input)="searchBaskets()"
+        />
+      </div>
+    </div>
+
+    @if (storage.basketsState.baskets.length > 0) {
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mb-8 items-stretch"
+        infiniteScroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="handleScroll()"
+      >
+        @for (basket of storage.basketsState.baskets; track basket.id) {
+          <app-basket [basket]="basket"></app-basket>
+        }
+      </div>
+
+      @if (basketsLoading) {
+        <div class="flex justify-center items-center p-4">
+          <div class="animate-spin">
+            <i class="ri-loader-4-line"></i>
+          </div>
+        </div>
+      }
+    } @else if (storage.basketsState.endReached) {
+      <app-no-data
+        icon="ri-shopping-basket-2-line"
+        message="No baskets found"
+      />
+    } @else {
+      <app-loading content="Loading baskets ..." />
+    }
+  </div>
+</div>
