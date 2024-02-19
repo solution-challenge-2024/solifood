@@ -14,6 +14,7 @@ import {
   query,
   setDoc,
   startAfter,
+  where,
 } from "@angular/fire/firestore";
 import { Observable, from } from "rxjs";
 import {
@@ -36,7 +37,12 @@ export class BasketService {
     size = 12,
   ): Promise<Basket[]> {
     // Build query
-    const q: QueryConstraint[] = [orderBy("createdAt", "desc"), limit(size)];
+    const q: QueryConstraint[] = [
+      where("available", "==", true), // Only available baskets
+      where("soldAt", "==", null), // Not sold yet
+      orderBy("createdAt", "desc"),
+      limit(size),
+    ];
 
     // If we have a last result, start after it
     if (lastResult) {
