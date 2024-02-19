@@ -6,6 +6,11 @@ import { routes } from "./app.routes";
 import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { connectAuthEmulator, getAuth, provideAuth } from "@angular/fire/auth";
 import {
+  connectStorageEmulator,
+  getStorage,
+  provideStorage,
+} from "@angular/fire/storage";
+import {
   getAnalytics,
   provideAnalytics,
   ScreenTrackingService,
@@ -34,6 +39,17 @@ export const appConfig: ApplicationConfig = {
         }
 
         return auth;
+      }),
+    ),
+    importProvidersFrom(
+      provideStorage(() => {
+        const storage = getStorage();
+
+        if (environment.useEmulators) {
+          connectStorageEmulator(storage, "localhost", 9199);
+        }
+
+        return storage;
       }),
     ),
     importProvidersFrom(provideAnalytics(() => getAnalytics())),

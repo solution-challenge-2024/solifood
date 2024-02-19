@@ -36,7 +36,7 @@ export class BasketFormComponent {
   basket = {
     title: "",
     description: "",
-    images: [],
+    images: [] as File[],
     price: 0,
     location: { lat: 33.589886, lon: -7.603869 },
     available: true,
@@ -58,18 +58,26 @@ export class BasketFormComponent {
       return;
     }
 
-    // TODO: Upload images
-
     try {
+      // Upload images
+      const images = await this.service.uploadImages(this.basket.images);
+      if (images.length == 0) {
+        this.loading = false;
+        this.toastr.error("Please upload valid image files");
+        return;
+      }
+
+      // Create basket
       const id = await this.service.createBasket({
         ...this.basket,
-        images: ["https://via.placeholder.com/150"],
+        images,
         blocked: false,
         expiredAt: Timestamp.fromDate(dayjs(this.basket.expiredAt).toDate()),
         createdAt: Timestamp.now(),
         createdBy: this.storage.user,
       });
 
+      // Redirect to explore
       this.toastr.success("Basket created successfully");
       this.router.navigate(["/explore", id]);
       this.loading = false;

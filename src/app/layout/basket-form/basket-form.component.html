@@ -21,7 +21,11 @@
   <div>
     <div class="grid lg:grid-cols-2 grid-cols-1 gap-8 h-2/3 mt-8 mb-4">
       <!-- Basket images -->
-      <app-file-input [extensions]="['PNG', 'JPG']" [multiple]="true" />
+      <app-file-input
+        [extensions]="['PNG', 'JPG']"
+        [multiple]="true"
+        (filesSelected)="basket.images = $event"
+      />
       <div>
         <app-input
           input="text"
