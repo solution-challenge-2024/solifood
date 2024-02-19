@@ -55,6 +55,15 @@ export class BasketComponent implements OnInit {
     return willExpireAt.diff(now, "day") < 1; // less than 1 day
   }
 
+  expired(): boolean {
+    if (!this.basket) return false;
+
+    const now = dayjs();
+    const expiredAt = dayjs(this.basket.expiredAt.toDate());
+
+    return expiredAt.isBefore(now);
+  }
+
   timeAgo(date: Date): string {
     return dayjs(date).fromNow();
   }

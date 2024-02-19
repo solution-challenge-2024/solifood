@@ -4,12 +4,19 @@
       <div>
         <div class="mb-4">
           <div class="relative mb-4">
-            @if (willExpireSoon()) {
+            @if (basket.soldAt != null) {
               <span
-                class="absolute inline-flex items-center gap-2 top-2 left-2 px-2 py-1 bg-gray-100 border border-red-800 text-red-800 text-xs rounded-lg"
+                class="absolute inline-flex items-center gap-2 top-2 left-2 px-2 py-1 bg-green-100 border border-green-800 text-green-800 text-xs font-semibold rounded-lg"
+              >
+                <i class="ri-check-line text-green-800 ri-lg"></i>
+                Picked up
+              </span>
+            } @else if (willExpireSoon()) {
+              <span
+                class="absolute inline-flex items-center gap-2 top-2 left-2 px-2 py-1 bg-red-100 border border-red-800 text-red-800 text-xs font-semibold rounded-lg"
               >
                 <i class="ri-time-fill text-red-800 ri-lg"></i>
-                Expiring soon
+                {{ expired() ? "Expired" : "Expiring soon" }}
               </span>
             }
             <img
@@ -93,18 +100,20 @@
             }
           </ul>
         </div>
-        <div class="flex gap-2">
-          <app-button
-            color="primary"
-            class="w-full"
-            [routerLink]="'/order/' + basket.id"
-          >
-            Order basket
-          </app-button>
-          <app-button color="dark" class="w-[40px] h-[40px]">
-            <i class="ri-share-line"></i>
-          </app-button>
-        </div>
+        @if (basket.soldAt == null && !expired()) {
+          <div class="flex gap-2">
+            <app-button
+              color="primary"
+              class="w-full"
+              [routerLink]="'/order/' + basket.id"
+            >
+              Order basket
+            </app-button>
+            <app-button color="dark" class="w-[40px] h-[40px]">
+              <i class="ri-share-line"></i>
+            </app-button>
+          </div>
+        }
       </div>
     </div>
     <app-map [center]="mapCenter" [location]="mapCenter" />
