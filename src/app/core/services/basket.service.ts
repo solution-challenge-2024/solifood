@@ -55,6 +55,17 @@ export class BasketService {
     return basketsSnapshots.docs.map((doc) => doc.data() as Basket);
   }
 
+  async getBasketsByUser(userId: string): Promise<Basket[]> {
+    const qry = query(
+      this.basketsCollection,
+      where("createdBy.id", "==", userId),
+      orderBy("createdAt", "desc"),
+      limit(100),
+    );
+    const basketsSnapshots = await getDocs(qry);
+    return basketsSnapshots.docs.map((doc) => doc.data() as Basket);
+  }
+
   async getBasket(id: string): Promise<Basket | null> {
     const docRef = doc(this.firestore, `baskets/${id}`);
     const docSnap = await getDoc(docRef);

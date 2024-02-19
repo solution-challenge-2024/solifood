@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, OnInit, inject } from "@angular/core";
 import { StorageService } from "../../core/data/storage.service";
 import dayjs from "dayjs";
 import { ButtonComponent } from "../../components/button/button.component";
@@ -10,9 +10,10 @@ import { LoadingComponent } from "../../components/loading/loading.component";
 import { NoDataComponent } from "../../components/no-data/no-data.component";
 import { TagsInputComponent } from "../../components/tags-input/tags-input.component";
 import { BasketService } from "../../core/services/basket.service";
-import { initDrawers } from "flowbite";
 import { BasketComponent } from "../../shared/basket/basket.component";
 import { Router } from "@angular/router";
+import { Basket } from "../../core/models/basket";
+import { Auth } from "@angular/fire/auth";
 
 @Component({
   selector: "app-profil",
@@ -30,76 +31,39 @@ import { Router } from "@angular/router";
     NoDataComponent,
   ],
   templateUrl: "./profil.component.html",
-  styleUrl: "./profil.component.scss",
 })
-export class ProfilComponent {
+export class ProfilComponent implements OnInit {
   public storage = inject(StorageService);
+  public auth = inject(Auth);
   private basket = inject(BasketService);
   private router = inject(Router);
 
-  basketsLoading = false;
-
+  basketsLoading = true;
+  baskets: Basket[] = [];
   searchQuery = "";
-  filters = {
-    maxDistance: 300,
-    sortBy: "newest",
-    tags: [],
-  };
 
-  ngOnInit() {
-    initDrawers();
-    // Load baskets
-    if (!this.storage.basketsState.loaded) {
-      this.loadBaskets();
+  async ngOnInit() {
+    const currUser = await this.auth.currentUser;
+    if (currUser) {
+      this.baskets = await this.basket.getBasketsByUser(currUser.uid);
+      console.log(this.baskets);
     }
-  }
 
-  async handleScroll() {
-    if (this.basketsLoading || this.storage.basketsState.endReached) return;
-
-    this.basketsLoading = true;
-    await this.loadBaskets();
     this.basketsLoading = false;
-  }
-
-  async loadBaskets() {
-    // Get last result to start after
-    const basketsCount = this.storage.basketsState.baskets.length;
-    const lastResult =
-      basketsCount > 0
-        ? this.storage.basketsState.baskets[basketsCount - 1]
-        : null;
-
-    // Get baskets
-    const baskets = await this.basket.getBaskets(lastResult);
-
-    // If no baskets, end reached
-    if (baskets.length === 0) {
-      this.storage.basketsState.endReached = true;
-      return;
-    }
-
-    // Add baskets to storage
-    this.storage.basketsState.baskets = [
-      ...this.storage.basketsState.baskets,
-      ...baskets,
-    ];
-    this.storage.basketsState.loaded = true;
   }
 
   searchBaskets() {
     console.log(this.searchQuery);
   }
 
-  filterBaskets() {
-    console.log(this.filters);
-  }
   joinedAt(date: Date): string {
     return dayjs(date).format("MMM YYYY");
   }
+
   navigateToSettings() {
     this.router.navigate(["/setting"]);
   }
+
   navigateToBasketForm() {
     this.router.navigate(["/basket-form"]);
   }

@@ -27,20 +27,23 @@
       <div
         class="flex flex-wrap items-center gap-4 text-sm font-sans my-2 mx-auto"
       >
-        <div>
+        <!-- <div>
           <i class="ri-map-pin-line"></i><span class="mx-1">20 km Away</span>
-        </div>
+        </div> -->
         <div>
           <i class="ri-star-line"></i> <span class="mx-1">30 Ratings</span>
         </div>
         <div>
-          <i class="ri-time-line"></i
-          ><span class="mx-1"
-            >Joined at {{ joinedAt(storage.user.joinedAt.toDate()) }}</span
-          >
+          <i class="ri-time-line"></i>
+          <span class="mx-1">
+            Joined at {{ joinedAt(storage.user.joinedAt.toDate()) }}
+          </span>
         </div>
         <div>
-          <i class="ri-archive-line"></i><span class="mx-1">30 listings</span>
+          <i class="ri-archive-line"></i
+          ><span class="mx-1">
+            {{ baskets.length < 100 ? baskets.length : "+99" }} listings
+          </span>
         </div>
       </div>
     }
@@ -73,31 +76,21 @@
       </div>
     </div>
 
-    @if (storage.basketsState.baskets.length > 0) {
-      <div
-        class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mb-8 items-stretch"
-        infiniteScroll
-        [infiniteScrollDistance]="2"
-        [infiniteScrollThrottle]="50"
-        (scrolled)="handleScroll()"
-      >
-        @for (basket of storage.basketsState.baskets; track basket.id) {
-          <app-basket [basket]="basket"></app-basket>
-        }
-      </div>
-
-      @if (basketsLoading) {
-        <div class="flex justify-center items-center p-4">
-          <div class="animate-spin">
-            <i class="ri-loader-4-line"></i>
-          </div>
+    @if (!basketsLoading) {
+      @if (baskets.length > 0) {
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mb-8 items-stretch"
+        >
+          @for (basket of this.baskets; track basket.id) {
+            <app-basket [basket]="basket"></app-basket>
+          }
         </div>
+      } @else {
+        <app-no-data
+          icon="ri-shopping-basket-2-line"
+          message="No baskets found"
+        />
       }
-    } @else if (storage.basketsState.endReached) {
-      <app-no-data
-        icon="ri-shopping-basket-2-line"
-        message="No baskets found"
-      />
     } @else {
       <app-loading content="Loading baskets ..." />
     }
