@@ -7,6 +7,11 @@ import { TagsInputComponent } from "../../components/tags-input/tags-input.compo
 import { ChoiceComponent } from "../../components/choice/choice.component";
 import { StorageService } from "../../core/data/storage.service";
 import { MapComponent } from "../../components/map/map.component";
+import { ToastrService } from "ngx-toastr";
+import { BasketService } from "../../core/services/basket.service";
+import { Router } from "@angular/router";
+import { Timestamp } from "@angular/fire/firestore";
+import dayjs from "dayjs";
 
 @Component({
   selector: "app-basket-form",
@@ -24,17 +29,20 @@ import { MapComponent } from "../../components/map/map.component";
 })
 export class BasketFormComponent {
   public storage = inject(StorageService);
+  private service = inject(BasketService);
+  private toastr = inject(ToastrService);
+  private router = inject(Router);
 
   basket = {
     title: "",
     description: "",
     images: [],
+    price: 0,
+    location: { lat: 33.589886, lon: -7.603869 },
+    available: true,
     tags: [],
     ingredients: [],
-    price: 0,
-    expiredAt: new Date(),
-    isAvailable: true,
-    location: { latitude: 33.589886, longitude: -7.603869 },
+    expiredAt: dayjs().format("YYYY-MM-DD"),
   };
 
   loading = false;
@@ -44,12 +52,46 @@ export class BasketFormComponent {
     if (this.loading) return;
 
     this.loading = true;
-    console.log(this.basket);
+    if (!this.validateBasket()) {
+      this.loading = false;
+      this.toastr.error("Please fill all the required fields");
+      return;
+    }
 
-    // TODO: Implement API call to save the basket
+    // TODO: Upload images
+
+    try {
+      const id = await this.service.createBasket({
+        ...this.basket,
+        images: ["https://via.placeholder.com/150"],
+        blocked: false,
+        expiredAt: Timestamp.fromDate(dayjs(this.basket.expiredAt).toDate()),
+        createdAt: Timestamp.now(),
+        createdBy: this.storage.user,
+      });
+
+      this.toastr.success("Basket created successfully");
+      this.router.navigate(["/explore", id]);
+      this.loading = false;
+    } catch (error) {
+      this.toastr.error("An error occurred while creating the basket");
+      this.loading = false;
+    }
   }
 
   locationChange(location: { latitude: number; longitude: number }) {
-    this.basket.location = location;
+    this.basket.location = {
+      lat: location.latitude,
+      lon: location.longitude,
+    };
+  }
+
+  validateBasket() {
+    return (
+      this.basket.title.length > 0 && // Check if title is not empty
+      this.basket.description.length > 0 && // Check if description is not empty
+      this.basket.price > 0 && // Check if price is greater than 0
+      dayjs(this.basket.expiredAt).isAfter(dayjs()) // Check if expiredAt is in the future
+    );
   }
 }

@@ -18,7 +18,6 @@ import {
 } from "@angular/fire/firestore";
 import { environment } from "../environments/environment.development";
 import { provideToastr } from "ngx-toastr";
-import { BrowserModule } from "@angular/platform-browser";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -53,6 +52,5 @@ export const appConfig: ApplicationConfig = {
     ),
     provideAnimations(),
     provideToastr(),
-    importProvidersFrom(BrowserModule),
   ],
 };

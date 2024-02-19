@@ -49,11 +49,11 @@ export class BasketService {
     return docSnap.exists() ? (docSnap.data() as Basket) : null;
   }
 
-  createBasket(basket: Basket): Observable<void> {
-    const promise = addDoc(this.basketsCollection, basket).then((resp) => {
-      (resp: any) => resp.id;
-    });
-    return from(promise);
+  async createBasket(basket: Partial<Basket>) {
+    const response = await addDoc(this.basketsCollection, basket);
+    await this.updateBasket({ id: response.id, ...basket } as Basket);
+
+    return response.id;
   }
 
   deleteBasket(basket: Basket): Observable<void> {
@@ -62,9 +62,8 @@ export class BasketService {
     return from(promise);
   }
 
-  updateBasket(basket: Basket): Observable<void> {
+  async updateBasket(basket: Basket) {
     const docRef = doc(this.firestore, `baskets/${basket.id}`);
-    const promise = setDoc(docRef, basket);
-    return from(promise);
+    await setDoc(docRef, basket);
   }
 }
