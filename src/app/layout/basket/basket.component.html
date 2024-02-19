@@ -63,16 +63,18 @@
           <p class="text-primary-500 font-semibold">{{ basket.price }} MAD</p>
         </div>
         <div class="border-t-2 border-gray-300 mb-4"></div>
-        <div class="px-4">
-          <p class="font-semibold mb-2">Tags :</p>
-          @for (tag of basket.tags; track $index) {
-            <span
-              class="inline-block text-sm bg-white border border-gray-300 rounded-lg py-2 px-3 me-2"
-            >
-              {{ tag }}
-            </span>
-          }
-        </div>
+        @if (basket.tags.length > 0) {
+          <div class="px-4">
+            <p class="font-semibold mb-2">Tags :</p>
+            @for (tag of basket.tags; track $index) {
+              <span
+                class="inline-block text-sm bg-white border border-gray-300 rounded-lg py-2 px-3 me-2"
+              >
+                {{ tag }}
+              </span>
+            }
+          </div>
+        }
       </div>
       <div>
         <h5 class="text-2xl font-semibold mb-4">{{ basket.title }}</h5>
@@ -90,16 +92,18 @@
           </div>
         </div>
         <p class="text-gray-500 text-sm mb-4 px-2">{{ basket.description }}</p>
-        <div class="px-2 mb-4">
-          <p class="font-semibold mb-2">Ingredients :</p>
-          <ul class="list-disc ps-8">
-            @for (ingredient of basket.ingredients; track $index) {
-              <li class="text-sm mb-2">
-                {{ ingredient }}
-              </li>
-            }
-          </ul>
-        </div>
+        @if (basket.ingredients.length > 0) {
+          <div class="px-2 mb-4">
+            <p class="font-semibold mb-2">Ingredients :</p>
+            <ul class="list-disc ps-8">
+              @for (ingredient of basket.ingredients; track $index) {
+                <li class="text-sm mb-2">
+                  {{ ingredient }}
+                </li>
+              }
+            </ul>
+          </div>
+        }
         @if (basket.soldAt == null && !expired()) {
           <div class="flex gap-2">
             <app-button
