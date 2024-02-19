@@ -17,6 +17,12 @@ import {
   setDoc,
 } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
+import {
+  Storage,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from "@angular/fire/storage";
 
 @Injectable({
   providedIn: "root",
@@ -25,6 +31,7 @@ export class AuthenticationService {
   constructor(
     private auth: Auth,
     private firestore: Firestore,
+    private storage: Storage,
   ) {}
 
   public async signUp(userData: UserSignup) {
@@ -147,6 +154,30 @@ export class AuthenticationService {
 
       return () => unsubscribe();
     });
+  }
+
+  public async updateUser(userId: string, user: Partial<User>) {
+    // Get user document
+    const userDoc = doc(this.firestore, "users", userId);
+
+    // Update user
+    await setDoc(userDoc, user, { merge: true });
+  }
+
+  public async uploadProfilePicture(image: File): Promise<string> {
+    // Extract file info
+    const file = {
+      name: image.name.split(".")[0],
+      extension: image.name.split(".")[1],
+    };
+
+    // Create a new file name
+    const filename = file.name + "-" + Date.now() + "." + file.extension;
+    const storageRef = ref(this.storage, `baskets/${filename}`);
+
+    // Upload file
+    const snapshot = await uploadBytes(storageRef, image);
+    return getDownloadURL(snapshot.ref);
   }
 
   public initUser(data: Partial<User>): User {

@@ -5,7 +5,7 @@
       <app-button
         preIcon="ri-send-plane-2-fill"
         [disabled]="loading"
-        (click)="saveBasket()"
+        (click)="saveUser()"
       >
         {{ loading ? "Processing ..." : "Save Data" }}
       </app-button>
@@ -17,8 +17,16 @@
         class="w-32 h-32 rounded-full my-2"
         [src]="storage.user.picture"
         alt="user_profile"
+        id="preview-user-picture"
       />
-      <app-button class="my-2" color="dark"> Change Avatar </app-button>
+      <div class="relative">
+        <input
+          type="file"
+          class="opacity-0 absolute top-0 left-0 h-full w-full"
+          (change)="previewImage($event)"
+        />
+        <app-button class="my-2" color="dark"> Change Avatar </app-button>
+      </div>
     }
   </div>
   <div class="grid lg:grid-cols-2 grid-cols-1 gap-8 h-2/3 my-4">
@@ -26,14 +34,18 @@
       label="First name"
       placeholder="First name"
       name="firstName"
-      [(ngModel)]="firstName"
+      [(ngModel)]="user.firstName"
     />
     <app-input
       label="Last name"
       placeholder="Last name"
       name="lastName"
-      [(ngModel)]="lastName"
+      [(ngModel)]="user.lastName"
     />
   </div>
-  <app-map [center]="mapCenter" [location]="mapCenter" />
+  <app-map
+    [center]="mapCenter"
+    [location]="mapCenter"
+    (locationChange)="locationChange($event)"
+  />
 </div>

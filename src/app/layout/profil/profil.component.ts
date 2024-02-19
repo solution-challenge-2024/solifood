@@ -46,7 +46,6 @@ export class ProfilComponent implements OnInit {
     const currUser = await this.auth.currentUser;
     if (currUser) {
       this.baskets = await this.basket.getBasketsByUser(currUser.uid);
-      console.log(this.baskets);
     }
 
     this.basketsLoading = false;
