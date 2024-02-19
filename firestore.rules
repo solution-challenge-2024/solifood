@@ -8,7 +8,7 @@ service cloud.firestore {
 
     match /users/{userId} {
       allow list: if false;
-      allow get: if request.auth != null && !resource.data.blocked;
+      allow get: if true;
 
       allow create: if request.auth != null && request.auth.uid == userId;
       allow update: if request.auth != null && request.auth.uid == userId && isUnmodified(request, resource, "id") && isUnmodified(request, resource,  "email") && isUnmodified(request, resource, "blocked") && isUnmodified(request, resource, "joinedAt");
