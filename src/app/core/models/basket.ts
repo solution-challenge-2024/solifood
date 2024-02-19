@@ -14,8 +14,8 @@ export interface Basket {
   tags: string[];
   ingredients: string[];
   createdBy: User;
-  claimedBy?: User;
+  claimedBy: User | null;
   expiredAt: Timestamp;
-  soldAt?: Timestamp;
+  soldAt: Timestamp | null;
   createdAt: Timestamp;
 }

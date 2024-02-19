@@ -72,6 +72,8 @@ export class BasketFormComponent {
         ...this.basket,
         images,
         blocked: false,
+        claimedBy: null,
+        soldAt: null,
         expiredAt: Timestamp.fromDate(dayjs(this.basket.expiredAt).toDate()),
         createdAt: Timestamp.now(),
         createdBy: this.storage.user,
