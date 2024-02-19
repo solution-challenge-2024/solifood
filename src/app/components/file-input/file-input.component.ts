@@ -12,9 +12,9 @@ export class FileInputComponent implements OnInit {
   @Input() extensions: string[] = [];
   @Input() multiple: boolean = false;
 
-  @Output() filesSelected = new EventEmitter<FileList[]>();
+  @Output() filesSelected = new EventEmitter<File[]>();
 
-  inputSelectedFiles: FileList[] = [];
+  inputSelectedFiles: File[] = [];
   urls: string[] = [];
 
   ngOnInit(): void {
