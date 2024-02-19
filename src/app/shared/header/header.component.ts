@@ -34,4 +34,10 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(["/login"]);
     }
   }
+  navigateToBasketForm() {
+    this.router.navigate(["/basket-form"]);
+  }
+  navigateToProfile() {
+    this.router.navigate(["/profil"]);
+  }
 }

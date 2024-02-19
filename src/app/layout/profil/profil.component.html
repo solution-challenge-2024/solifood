@@ -2,9 +2,15 @@
   <div
     class="relative flex flex-col justify-center items-center bg-white rounded-lg p-4"
   >
-    <app-button color="dark" class="w-[40px] h-[40px] absolute top-2 right-2">
-      <i class="ri-share-line"></i>
+    <app-button
+      (click)="navigateToSettings()"
+      routerLinkActive="router-link-active"
+      color="dark"
+      class="w-[40px] h-[40px] absolute top-2 right-2"
+    >
+      <i class="ri-edit-line"></i>
     </app-button>
+
     @if (storage.user) {
       <img
         class="w-32 h-32 rounded-full my-2"
@@ -43,6 +49,15 @@
     <div class="flex justify-between items-center flex-wrap mb-8">
       <h1 class="text-xl font-sans font-bold">Listed baskets</h1>
       <div class="flex items-center">
+        <a title="New Basket" class="mx-2">
+          <button
+            type="button"
+            class="hover:text-green-500"
+            (click)="navigateToBasketForm()"
+          >
+            <i class="ri-add-circle-line text-3xl"></i>
+          </button>
+        </a>
         <label for="search" class="mb-2 text-sm font-sans sr-only">
           Search
         </label>
