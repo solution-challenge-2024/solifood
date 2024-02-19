@@ -1,1 +1,39 @@
-<p>setting works!</p>
+<div class="my-14">
+  <div class="flex justify-between items-center flex-wrap">
+    <h1 class="text-xl font-sans font-bold">Update Profile</h1>
+    <div class="flex items-center gap-4">
+      <app-button
+        preIcon="ri-send-plane-2-fill"
+        [disabled]="loading"
+        (click)="saveBasket()"
+      >
+        {{ loading ? "Processing ..." : "Save Data" }}
+      </app-button>
+    </div>
+  </div>
+  <div class="flex flex-col items-center">
+    @if (storage.user) {
+      <img
+        class="w-32 h-32 rounded-full my-2"
+        [src]="storage.user.picture"
+        alt="user_profile"
+      />
+      <app-button class="my-2" color="dark"> Change Avatar </app-button>
+    }
+  </div>
+  <div class="grid lg:grid-cols-2 grid-cols-1 gap-8 h-2/3 my-4">
+    <app-input
+      label="First name"
+      placeholder="First name"
+      name="firstName"
+      [(ngModel)]="firstName"
+    />
+    <app-input
+      label="Last name"
+      placeholder="Last name"
+      name="lastName"
+      [(ngModel)]="lastName"
+    />
+  </div>
+  <app-map [center]="mapCenter" [location]="mapCenter" />
+</div>
