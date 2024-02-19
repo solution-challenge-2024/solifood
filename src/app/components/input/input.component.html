@@ -29,7 +29,8 @@
           [required]="required"
           [rows]="rows"
           (input)="onInput($event)"
-        ></textarea>
+          >{{ value }}</textarea
+        >
       } @else if (input === "select") {
         <select
           [id]="inputId"
@@ -60,6 +61,7 @@
           [placeholder]="placeholder"
           [required]="required"
           (input)="onInput($event)"
+          [value]="value"
         />
       }
       @if (postIcon) {
