@@ -75,6 +75,8 @@ async function seedBaskets(count: number) {
       ingredients.push(faker.lorem.word());
     }
 
+    const basketSold = faker.datatype.boolean();
+
     const basket = {
       id: faker.string.alphanumeric({ length: 28 }),
       title: faker.lorem.sentence(),
@@ -91,10 +93,12 @@ async function seedBaskets(count: number) {
       tags,
       ingredients,
       createdBy: faker.helpers.arrayElement(users),
-      claimedBy: null,
+      claimedBy: basketSold ? faker.helpers.arrayElement(users) : null,
       expiredAt: admin.firestore.Timestamp.fromDate(faker.date.future()),
-      soldAt: null,
-      createdAt: admin.firestore.Timestamp.now(),
+      soldAt: basketSold
+        ? admin.firestore.Timestamp.now(faker.date.recent())
+        : null,
+      createdAt: admin.firestore.Timestamp.now(faker.date.recent()),
     };
 
     // Create basket
@@ -109,7 +113,7 @@ async function main() {
 
   // Seed baskets
   console.log("🌱 Seeding baskets ...");
-  await seedBaskets(50);
+  await seedBaskets(100);
 }
 
 main();
