@@ -12,6 +12,7 @@ import { TagsInputComponent } from "../../components/tags-input/tags-input.compo
 import { BasketService } from "../../core/services/basket.service";
 import { initDrawers } from "flowbite";
 import { BasketComponent } from "../../shared/basket/basket.component";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-profil",
@@ -34,6 +35,7 @@ import { BasketComponent } from "../../shared/basket/basket.component";
 export class ProfilComponent {
   public storage = inject(StorageService);
   private basket = inject(BasketService);
+  private router = inject(Router);
 
   basketsLoading = false;
 
@@ -94,5 +96,11 @@ export class ProfilComponent {
   }
   joinedAt(date: Date): string {
     return dayjs(date).format("MMM YYYY");
+  }
+  navigateToSettings() {
+    this.router.navigate(["/setting"]);
+  }
+  navigateToBasketForm() {
+    this.router.navigate(["/basket-form"]);
   }
 }

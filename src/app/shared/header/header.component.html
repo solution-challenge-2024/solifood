@@ -7,7 +7,19 @@
     </a>
     <div class="flex items-center md:order-2 space-x-3">
       @if (storage.user) {
+        <a title="New Basket">
+          <button
+            type="button"
+            class="hover:text-green-500"
+            (click)="navigateToBasketForm()"
+          >
+            <i class="ri-add-circle-line text-2xl"></i>
+          </button>
+        </a>
+
         <app-user-avatar
+          class="cursor-pointer"
+          (click)="navigateToProfile()"
           [user]="{
             displayName: storage.user.firstName + ' ' + storage.user.lastName,
             picture: storage.user.picture
