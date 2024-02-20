@@ -17,11 +17,13 @@ import { BasketFormComponent } from "./layout/basket-form/basket-form.component"
 import { MainComponent } from "./shared/main/main.component";
 import { BasketComponent } from "./layout/basket/basket.component";
 import { AfterPaymentComponent } from "./layout/after-payment/after-payment.component";
+import { NotFoundComponent } from "./layout/not-found/not-found.component";
 
 export const routes: Routes = [
   {
     path: "",
-    component: LandingComponent,
+    redirectTo: "/explore",
+    pathMatch: "full",
   },
   {
     path: "",
@@ -72,5 +74,5 @@ export const routes: Routes = [
     component: LoginComponent,
     ...canActivate(() => redirectLoggedInTo(["/explore"])),
   },
-  { path: "**", redirectTo: "" },
+  { path: "**", component: NotFoundComponent },
 ];
