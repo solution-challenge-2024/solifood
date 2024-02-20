@@ -2,7 +2,7 @@ const admin = require("firebase-admin");
 const { faker } = require("@faker-js/faker");
 
 // initialization
-const projectId = "solifood"; // replace with your own project id
+const projectId = "solifood-ba86d"; // replace with your own project id
 process.env["FIRESTORE_EMULATOR_HOST"] = "localhost:8080";
 process.env["FIREBASE_AUTH_EMULATOR_HOST"] = "localhost:9099";
 
