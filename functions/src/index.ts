@@ -3,6 +3,7 @@ import { onRequest } from "firebase-functions/v2/https";
 
 import * as express from "express";
 import * as admin from "firebase-admin";
+import * as cors from "cors";
 import { Timestamp } from "firebase-admin/firestore";
 import { authorizeRequest } from "./helpers";
 import { Basket } from "./models/basket";
@@ -24,6 +25,7 @@ admin.initializeApp({
 // Create an Express app
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // Create PayPal order route
 app.get("/order/:id", authorizeRequest, async (req: Request, res: Response) => {
