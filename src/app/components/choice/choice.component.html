@@ -1,6 +1,6 @@
 <div>
   @if (label) {
-    <div class="mb-2">Sort By</div>
+    <div class="mb-2">{{ label }}</div>
   }
   <div class="flex flex-col gap-2">
     @for (choice of choices; track $index) {
