@@ -22,5 +22,13 @@ service cloud.firestore {
       allow update: if request.auth != null && request.auth.uid == resource.data.createdBy.id && isUnmodified(request, resource, "createdBy") && (!('soldAt' in resource.data) || resource.data.soldAt == null) && request.resource.data.expiredAt > request.time;
       allow delete: if false;
     }
+
+    match /reports/{reportId} {
+      allow read: if request.auth != null;
+
+      allow create: if request.auth != null;
+      allow update: if false;
+      allow delete: if false;
+    }
   }
 }

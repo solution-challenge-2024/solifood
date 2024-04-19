@@ -7,11 +7,18 @@ import { BasketService } from "../../core/services/basket.service";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { LoadingComponent } from "../../components/loading/loading.component";
 import { MapComponent } from "../../components/map/map.component";
+import { ReportModalComponent } from "../../shared/report-modal/report-modal.component";
 
 @Component({
   selector: "app-basket",
   standalone: true,
-  imports: [ButtonComponent, LoadingComponent, RouterLink, MapComponent],
+  imports: [
+    ButtonComponent,
+    LoadingComponent,
+    RouterLink,
+    MapComponent,
+    ReportModalComponent,
+  ],
   templateUrl: "./basket.component.html",
 })
 export class BasketComponent implements OnInit {

@@ -1,15 +1,15 @@
 export const environment = {
-  production: false,
+  production: true,
   useEmulators: true,
-  apiURL: "http://127.0.0.1:5001/solifood/us-central1/api",
+  apiURL: "https://api-aqkmhjfa7a-uc.a.run.app",
   firebaseConfig: {
-    apiKey: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    authDomain: "project-id.firebaseapp.com",
-    projectId: "project-id",
-    storageBucket: "project-id.appspot.com",
-    messagingSenderId: "XXXXXXXXXXXXXX",
-    appId: "X:XXXXXXXXXXXXX:web:XXXXXXXXXXXXXXXX",
-    measurementId: "G-XXXXXXXXXX",
+    apiKey: "AIzaSyAllQLsNCEDguNXjdQ02gfiliXWelBTES8",
+    authDomain: "solifood.firebaseapp.com",
+    projectId: "solifood",
+    storageBucket: "solifood.appspot.com",
+    messagingSenderId: "1084068536570",
+    appId: "1:1084068536570:web:494ba8cd41f7000d88e943",
+    measurementId: "G-M6P7690TWK",
   },
   PaypalConfig: {
     clientId:

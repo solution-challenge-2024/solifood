@@ -3,6 +3,7 @@ import { Basket } from "../models/basket";
 import {
   Firestore,
   QueryConstraint,
+  Timestamp,
   addDoc,
   collection,
   deleteDoc,
@@ -23,6 +24,7 @@ import {
   ref,
   uploadBytes,
 } from "@angular/fire/storage";
+import { StorageService } from "../data/storage.service";
 
 @Injectable({
   providedIn: "root",
@@ -30,7 +32,9 @@ import {
 export class BasketService {
   firestore = inject(Firestore);
   storage = inject(Storage);
+  storageService = inject(StorageService);
   basketsCollection = collection(this.firestore, "baskets");
+  reportsCollection = collection(this.firestore, "reports");
 
   async getBaskets(
     lastResult: Basket | null = null,
@@ -118,5 +122,23 @@ export class BasketService {
     }
 
     return Promise.all(promises);
+  }
+
+  async reportAbuse(basketId: string, reason: string[], details: string) {
+    // Get basket & current user
+    const basket = await this.getBasket(basketId);
+    const user = this.storageService.user;
+
+    // Create report object
+    const report = {
+      basket,
+      reportedBy: user,
+      reason: reason.join(", "),
+      details,
+      createdAt: Timestamp.now(),
+    };
+
+    // Report abuse
+    await addDoc(this.reportsCollection, report);
   }
 }
