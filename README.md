@@ -32,4 +32,4 @@ Contributions to SoliFood are welcome! If you have ideas for new features, impro
 
 ## Acknowledgements
 
-SoliFood was developed by [Your Name] for the GDSC Solution Challenge 2024. Special thanks to the GDSC team for organizing the challenge.
+SoliFood was developed by **GDSC ENSET team** for the GDSC Solution Challenge 2024. Special thanks to the global GDSC for organizing the challenge.
