@@ -1,4 +1,8 @@
-import { ApplicationConfig, importProvidersFrom } from "@angular/core";
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  isDevMode,
+} from "@angular/core";
 import { provideRouter } from "@angular/router";
 import { provideAnimations } from "@angular/platform-browser/animations";
 
@@ -23,6 +27,7 @@ import {
 } from "@angular/fire/firestore";
 import { environment } from "../environments/environment.development";
 import { provideToastr } from "ngx-toastr";
+import { provideServiceWorker } from "@angular/service-worker";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -33,22 +38,18 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(
       provideAuth(() => {
         const auth = getAuth();
-
         if (environment.useEmulators) {
           connectAuthEmulator(auth, "http://localhost:9099");
         }
-
         return auth;
       }),
     ),
     importProvidersFrom(
       provideStorage(() => {
         const storage = getStorage();
-
         if (environment.useEmulators) {
           connectStorageEmulator(storage, "localhost", 9199);
         }
-
         return storage;
       }),
     ),
@@ -58,15 +59,21 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(
       provideFirestore(() => {
         const firestore = getFirestore();
-
         if (environment.useEmulators) {
           connectFirestoreEmulator(firestore, "localhost", 8080);
         }
-
         return firestore;
       }),
     ),
     provideAnimations(),
     provideToastr(),
+    provideServiceWorker("ngsw-worker.js", {
+      enabled: !isDevMode(),
+      registrationStrategy: "registerWhenStable:30000",
+    }),
+    provideServiceWorker("ngsw-worker.js", {
+      enabled: !isDevMode(),
+      registrationStrategy: "registerWhenStable:30000",
+    }),
   ],
 };
