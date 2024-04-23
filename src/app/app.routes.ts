@@ -18,6 +18,7 @@ import { MainComponent } from "./shared/main/main.component";
 import { BasketComponent } from "./layout/basket/basket.component";
 import { AfterPaymentComponent } from "./layout/after-payment/after-payment.component";
 import { NotFoundComponent } from "./layout/not-found/not-found.component";
+import { DashboardComponent } from "./layout/dashboard/dashboard.component";
 
 export const routes: Routes = [
   {
@@ -49,6 +50,10 @@ export const routes: Routes = [
       {
         path: "profil",
         component: ProfilComponent,
+      },
+      {
+        path: "dashboard",
+        component: DashboardComponent,
       },
       {
         path: "setting",
