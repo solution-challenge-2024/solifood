@@ -11,6 +11,9 @@ import { StorageService } from "../../core/data/storage.service";
 import { BasketService } from "../../core/services/basket.service";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { NoDataComponent } from "../../components/no-data/no-data.component";
+import { LeafletModule } from "@asymmetrik/ngx-leaflet";
+import { Layer, MapOptions, icon, marker, tileLayer } from "leaflet";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-explore",
@@ -25,14 +28,17 @@ import { NoDataComponent } from "../../components/no-data/no-data.component";
     LoadingComponent,
     InfiniteScrollModule,
     NoDataComponent,
+    LeafletModule,
   ],
   templateUrl: "./explore.component.html",
 })
 export class ExploreComponent implements OnInit {
   public storage = inject(StorageService);
   private basket = inject(BasketService);
+  private router = inject(Router);
 
   basketsLoading = false;
+  isMapView = false;
 
   searchQuery = "";
   filters = {
@@ -41,13 +47,28 @@ export class ExploreComponent implements OnInit {
     tags: [],
   };
 
-  ngOnInit() {
+  mapOptions: MapOptions = {
+    layers: [
+      tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 18,
+      }),
+    ],
+    zoom: 5,
+    center: [0, 0],
+  };
+
+  layers: Layer[] = [];
+
+  async ngOnInit() {
     initDrawers();
 
     // Load baskets
     if (!this.storage.basketsState.loaded) {
-      this.loadBaskets();
+      await this.loadBaskets();
     }
+
+    // Plot baskets on map
+    this.plotBasketsOnMap();
   }
 
   async handleScroll() {
@@ -81,6 +102,21 @@ export class ExploreComponent implements OnInit {
       ...baskets,
     ];
     this.storage.basketsState.loaded = true;
+  }
+
+  plotBasketsOnMap() {
+    this.storage.basketsState.baskets.forEach((basket) => {
+      this.layers.push(
+        marker([basket.location.lat, basket.location.lon], {
+          icon: icon({
+            iconUrl: "/assets/marker-icon.png",
+            iconAnchor: [19, 35],
+          }),
+        }).on("click", (event) => {
+          this.router.navigate(["/explore", basket.id]);
+        }),
+      );
+    });
   }
 
   searchBaskets() {

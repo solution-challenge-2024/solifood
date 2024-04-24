@@ -1,6 +1,44 @@
 <div class="my-16">
   <div class="flex justify-between items-center flex-wrap mb-8">
     <h1 class="text-xl font-sans font-bold">Explore latest baskets</h1>
+    <ul class="flex items-center">
+      <li (click)="isMapView = false">
+        <input
+          type="radio"
+          id="list-view"
+          name="view"
+          class="hidden peer"
+          [checked]="!isMapView"
+        />
+        <label
+          for="list-view"
+          class="inline-flex items-center justify-between w-full px-5 py-2 text-gray-500 bg-white border border-gray-200 rounded-s-lg cursor-pointer peer-checked:border-primary-600 peer-checked:text-primary-600 hover:bg-gray-50 hover:text-gray-600 transition"
+        >
+          <div class="flex items-center gap-2">
+            <i class="ri-layout-grid-fill"></i>
+            <p>List View</p>
+          </div>
+        </label>
+      </li>
+      <li (click)="isMapView = true">
+        <input
+          type="radio"
+          id="map-view"
+          name="view"
+          class="hidden peer"
+          [checked]="isMapView"
+        />
+        <label
+          for="hosting-big"
+          class="inline-flex items-center justify-between w-full px-5 py-2 text-gray-500 bg-white border border-gray-200 rounded-e-lg cursor-pointer peer-checked:border-primary-600 peer-checked:text-primary-600 hover:bg-gray-50 hover:text-gray-600 transition"
+        >
+          <div class="flex items-center gap-2">
+            <i class="ri-road-map-line"></i>
+            <p>Map View</p>
+          </div>
+        </label>
+      </li>
+    </ul>
     <div class="flex items-center">
       <label for="search" class="mb-2 text-sm font-sans sr-only">
         Search
@@ -28,24 +66,33 @@
   </div>
 
   @if (storage.basketsState.baskets.length > 0) {
-    <div
-      class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mb-8 items-stretch"
-      infiniteScroll
-      [infiniteScrollDistance]="2"
-      [infiniteScrollThrottle]="50"
-      (scrolled)="handleScroll()"
-    >
-      @for (basket of storage.basketsState.baskets; track basket.id) {
-        <app-basket [basket]="basket"></app-basket>
-      }
-    </div>
-
-    @if (basketsLoading) {
-      <div class="flex justify-center items-center p-4">
-        <div class="animate-spin">
-          <i class="ri-loader-4-line"></i>
-        </div>
+    @if (isMapView) {
+      <div
+        class="h-[700px] rounded border border-gray-300"
+        leaflet
+        [leafletOptions]="mapOptions"
+        [leafletLayers]="layers"
+      ></div>
+    } @else {
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mb-8 items-stretch"
+        infiniteScroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="handleScroll()"
+      >
+        @for (basket of storage.basketsState.baskets; track basket.id) {
+          <app-basket [basket]="basket"></app-basket>
+        }
       </div>
+
+      @if (basketsLoading) {
+        <div class="flex justify-center items-center p-4">
+          <div class="animate-spin">
+            <i class="ri-loader-4-line"></i>
+          </div>
+        </div>
+      }
     }
   } @else if (storage.basketsState.endReached) {
     <app-no-data icon="ri-shopping-basket-2-line" message="No baskets found" />

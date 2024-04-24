@@ -16,7 +16,7 @@ service firebase.storage {
     // all client requests to your Storage bucket will be denied until you Update
     // your rules
     match /{allPaths=**} {
-      allow read, write: if request.time < timestamp.date(2024, 3, 20);
+      allow read, write: if true;
     }
   }
 }
