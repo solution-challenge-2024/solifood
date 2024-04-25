@@ -35,13 +35,16 @@ export class DashboardComponent {
         "Jul",
         "Aug",
         "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
       ],
     },
 
     series: [
       {
         name: "Orders by Month",
-        data: [10, 2, 3, 6, 9, 17, 20, 10, 5, 2, 16],
+        data: [10, 2, 3, 6, 9, 17, 20, 10, 5, 2, 16, 4],
       } as any,
     ],
   });
