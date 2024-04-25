@@ -5,7 +5,7 @@ import {
 } from "@angular/core";
 import { provideRouter } from "@angular/router";
 import { provideAnimations } from "@angular/platform-browser/animations";
-
+import { NgApexchartsModule } from "ng-apexcharts";
 import { routes } from "./app.routes";
 import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { connectAuthEmulator, getAuth, provideAuth } from "@angular/fire/auth";
@@ -67,6 +67,7 @@ export const appConfig: ApplicationConfig = {
     ),
     provideAnimations(),
     provideToastr(),
+    NgApexchartsModule,
     provideServiceWorker("ngsw-worker.js", {
       enabled: !isDevMode(),
       registrationStrategy: "registerWhenStable:30000",
