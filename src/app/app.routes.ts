@@ -23,7 +23,7 @@ import { DashboardComponent } from "./layout/dashboard/dashboard.component";
 export const routes: Routes = [
   {
     path: "",
-    redirectTo: "/explore",
+    redirectTo: "/home",
     pathMatch: "full",
   },
   {
