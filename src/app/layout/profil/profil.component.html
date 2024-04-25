@@ -10,6 +10,14 @@
     >
       <i class="ri-edit-line"></i>
     </app-button>
+    <app-button
+      (click)="navigateToDashboad()"
+      routerLinkActive="router-link-active"
+      color="dark"
+      class="w-[40px] h-[40px] absolute top-2 right-8"
+    >
+      <i class="ri-dashboard-line"></i>
+    </app-button>
 
     @if (storage.user) {
       <img

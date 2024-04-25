@@ -66,4 +66,7 @@ export class ProfilComponent implements OnInit {
   navigateToBasketForm() {
     this.router.navigate(["/basket-form"]);
   }
+  navigateToDashboad() {
+    this.router.navigate(["/dashboard"]);
+  }
 }
