@@ -14,6 +14,8 @@ import { NoDataComponent } from "../../components/no-data/no-data.component";
 import { LeafletModule } from "@asymmetrik/ngx-leaflet";
 import { Layer, MapOptions, icon, marker, tileLayer } from "leaflet";
 import { Router } from "@angular/router";
+import { Basket } from "../../core/models/basket";
+import dayjs from "dayjs";
 
 @Component({
   selector: "app-explore",
@@ -38,7 +40,7 @@ export class ExploreComponent implements OnInit {
   private router = inject(Router);
 
   basketsLoading = false;
-  isMapView = false;
+  isMapView = true;
 
   searchQuery = "";
   filters = {
@@ -112,9 +114,27 @@ export class ExploreComponent implements OnInit {
             iconUrl: "/assets/marker-icon.png",
             iconAnchor: [19, 35],
           }),
-        }).on("click", (event) => {
-          this.router.navigate(["/explore", basket.id]);
-        }),
+        })
+          .on("click", (event) => {
+            this.router.navigate(["/explore", basket.id]);
+          })
+          .bindPopup(
+            `
+            <div class="font-bold mb-[5px]">${basket.title}</div>
+            <div class="d-flex gap-2 items-center mb-[10px] text-gray-500">
+              <span>0.3km</span>
+              -
+              <span>${this.is_expired(basket) ? "Expired" : "Available"}</span>
+            </div>
+            <div>${basket.description}</div>
+          `,
+            {
+              offset: [0, -30],
+            },
+          )
+          .on("mouseover", (event) => {
+            event.target.openPopup();
+          }),
       );
     });
   }
@@ -125,5 +145,14 @@ export class ExploreComponent implements OnInit {
 
   filterBaskets() {
     console.log(this.filters);
+  }
+
+  is_expired(basket: Basket): boolean {
+    if (!basket) return false;
+
+    const now = dayjs();
+    const expiredAt = dayjs(basket.expiredAt.toDate());
+
+    return expiredAt.isBefore(now);
   }
 }
