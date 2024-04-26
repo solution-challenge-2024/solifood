@@ -25,6 +25,7 @@
     "@angular/service-worker": "^17.3.5",
     "@asymmetrik/ngx-leaflet": "^17.0.0",
     "angular-highcharts": "^17.0.1",
+    "apexcharts": "^3.49.0",
     "chart.js": "^2.9.3",
     "chartjs-plugin-zoom": "^2.0.1",
     "dayjs": "^1.11.10",
