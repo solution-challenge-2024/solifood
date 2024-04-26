@@ -1,57 +1,49 @@
 <div class="my-16">
-  <div class="flex justify-between items-center flex-wrap mb-8">
+  <div class="flex justify-between items-center flex-wrap mb-4">
     <h1 class="text-xl font-sans font-bold">Explore latest baskets</h1>
-    <ul class="flex items-center">
-      <li (click)="isMapView = false">
-        <input
-          type="radio"
-          id="list-view"
-          name="view"
-          class="hidden peer"
-          [checked]="!isMapView"
-        />
-        <label
-          for="list-view"
-          class="inline-flex items-center justify-between w-full px-5 py-2 text-gray-500 bg-white border border-gray-200 rounded-s-lg cursor-pointer peer-checked:border-primary-600 peer-checked:text-primary-600 hover:bg-gray-50 hover:text-gray-600 transition"
-        >
-          <div class="flex items-center gap-2">
-            <i class="ri-layout-grid-fill"></i>
-            <p>List View</p>
-          </div>
-        </label>
-      </li>
-      <li (click)="isMapView = true">
-        <input
-          type="radio"
-          id="map-view"
-          name="view"
-          class="hidden peer"
-          [checked]="isMapView"
-        />
-        <label
-          for="hosting-big"
-          class="inline-flex items-center justify-between w-full px-5 py-2 text-gray-500 bg-white border border-gray-200 rounded-e-lg cursor-pointer peer-checked:border-primary-600 peer-checked:text-primary-600 hover:bg-gray-50 hover:text-gray-600 transition"
-        >
-          <div class="flex items-center gap-2">
-            <i class="ri-road-map-line"></i>
-            <p>Map View</p>
-          </div>
-        </label>
-      </li>
-    </ul>
     <div class="flex items-center">
-      <label for="search" class="mb-2 text-sm font-sans sr-only">
-        Search
-      </label>
-      <app-input
-        input="text"
-        name="search"
-        inputId="search"
-        placeholder="Search..."
-        postIcon="ri-search-line"
-        [(ngModel)]="searchQuery"
-        (input)="searchBaskets()"
-      />
+      <div class="flex items-center mx-auto">
+        <div class="relative">
+          @if (isSearchMode) {
+            <div
+              class="absolute inset-y-0 start-0 flex items-center ps-3 cursor-pointer"
+              (click)="resetSearch()"
+            >
+              <i class="ri-close-line text-gray-500"></i>
+            </div>
+          }
+          <input
+            type="text"
+            id="voice-search"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5"
+            placeholder="Search baskets ..."
+            [(ngModel)]="searchQuery"
+          />
+          <button
+            type="button"
+            class="absolute inset-y-0 end-0 flex items-center pe-3"
+          >
+            <i class="ri-mic-line text-gray-500 hover:text-gray-900"></i>
+          </button>
+        </div>
+        <button
+          class="flex items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-primary-700 rounded-lg border border-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300"
+          [class]="
+            basketsLoading
+              ? 'opacity-35 cursor-default pointer-events-none'
+              : ''
+          "
+          (click)="searchBaskets()"
+          [disabled]="basketsLoading"
+        >
+          <i class="ri-search-line me-2"></i>
+          @if (basketsLoading) {
+            Loading baskets ...
+          } @else {
+            Search
+          }
+        </button>
+      </div>
       <button
         class="ml-4"
         type="button"
@@ -64,6 +56,45 @@
       </button>
     </div>
   </div>
+
+  <ul class="flex items-center mb-8">
+    <li (click)="isMapView = false">
+      <input
+        type="radio"
+        id="list-view"
+        name="view"
+        class="hidden peer"
+        [checked]="!isMapView"
+      />
+      <label
+        for="list-view"
+        class="inline-flex items-center justify-between w-full px-5 py-2 text-gray-500 bg-white border border-gray-200 rounded-s-lg cursor-pointer peer-checked:border-primary-600 peer-checked:text-primary-600 hover:bg-gray-50 hover:text-gray-600 transition"
+      >
+        <div class="flex items-center gap-2">
+          <i class="ri-layout-grid-fill"></i>
+          <p>List View</p>
+        </div>
+      </label>
+    </li>
+    <li (click)="isMapView = true">
+      <input
+        type="radio"
+        id="map-view"
+        name="view"
+        class="hidden peer"
+        [checked]="isMapView"
+      />
+      <label
+        for="hosting-big"
+        class="inline-flex items-center justify-between w-full px-5 py-2 text-gray-500 bg-white border border-gray-200 rounded-e-lg cursor-pointer peer-checked:border-primary-600 peer-checked:text-primary-600 hover:bg-gray-50 hover:text-gray-600 transition"
+      >
+        <div class="flex items-center gap-2">
+          <i class="ri-road-map-line"></i>
+          <p>Map View</p>
+        </div>
+      </label>
+    </li>
+  </ul>
 
   @if (storage.basketsState.baskets.length > 0) {
     @if (isMapView) {

@@ -2,6 +2,7 @@ export const environment = {
   production: true,
   useEmulators: true,
   apiURL: "https://api-aqkmhjfa7a-uc.a.run.app",
+  searchAPI: "https://search-api.com",
   firebaseConfig: {
     apiKey: "AIzaSyAllQLsNCEDguNXjdQ02gfiliXWelBTES8",
     authDomain: "solifood.firebaseapp.com",

@@ -25,6 +25,7 @@ import {
   uploadBytes,
 } from "@angular/fire/storage";
 import { StorageService } from "../data/storage.service";
+import { environment } from "../../../environments/environment.development";
 
 @Injectable({
   providedIn: "root",
@@ -140,5 +141,25 @@ export class BasketService {
 
     // Report abuse
     await addDoc(this.reportsCollection, report);
+  }
+
+  async searchBaskets(search: string): Promise<Basket[]> {
+    // Get basket IDs from the search API
+    const response = await fetch(
+      environment.searchAPI + "/search?query=" + search,
+    );
+    const data = await response.json();
+    const basketIds = data.ids;
+
+    if (basketIds.length === 0) {
+      return [];
+    }
+
+    // Get baskets
+    const qry = query(this.basketsCollection, where("id", "in", basketIds));
+    const basketsSnapshots = await getDocs(qry);
+    const baskets = basketsSnapshots.docs.map((doc) => doc.data() as Basket);
+
+    return baskets;
   }
 }

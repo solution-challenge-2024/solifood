@@ -40,9 +40,10 @@ export class ExploreComponent implements OnInit {
   private router = inject(Router);
 
   basketsLoading = false;
-  isMapView = true;
+  isMapView = false;
 
   searchQuery = "";
+  isSearchMode = false;
   filters = {
     maxDistance: 300,
     sortBy: "newest",
@@ -74,10 +75,16 @@ export class ExploreComponent implements OnInit {
   }
 
   async handleScroll() {
-    if (this.basketsLoading || this.storage.basketsState.endReached) return;
+    if (
+      this.basketsLoading ||
+      this.storage.basketsState.endReached ||
+      this.isSearchMode
+    )
+      return;
 
     this.basketsLoading = true;
     await this.loadBaskets();
+    this.plotBasketsOnMap();
     this.basketsLoading = false;
   }
 
@@ -107,6 +114,8 @@ export class ExploreComponent implements OnInit {
   }
 
   plotBasketsOnMap() {
+    this.layers = [];
+
     this.storage.basketsState.baskets.forEach((basket) => {
       this.layers.push(
         marker([basket.location.lat, basket.location.lon], {
@@ -139,8 +148,34 @@ export class ExploreComponent implements OnInit {
     });
   }
 
-  searchBaskets() {
-    console.log(this.searchQuery);
+  async searchBaskets() {
+    if (!this.searchQuery) return;
+    this.basketsLoading = true;
+
+    // Reset baskets
+    this.storage.basketsState.baskets = [];
+
+    // Get baskets ID from the search API
+    this.storage.basketsState.baskets = await this.basket.searchBaskets(
+      this.searchQuery,
+    );
+    this.plotBasketsOnMap();
+    this.basketsLoading = false;
+    this.isSearchMode = true;
+  }
+
+  async resetSearch() {
+    this.searchQuery = "";
+    this.isSearchMode = false;
+    this.basketsLoading = true;
+
+    // Reset baskets
+    this.storage.basketsState.baskets = [];
+
+    // Load baskets
+    await this.loadBaskets();
+    this.plotBasketsOnMap();
+    this.basketsLoading = false;
   }
 
   filterBaskets() {
