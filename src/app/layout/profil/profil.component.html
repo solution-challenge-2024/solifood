@@ -3,7 +3,7 @@
     class="relative flex flex-col justify-center items-center bg-white rounded-lg p-4"
   >
     <app-button
-      (click)="navigateToSettings()"
+      [routerLink]="['/setting']"
       routerLinkActive="router-link-active"
       color="dark"
       class="w-[40px] h-[40px] absolute top-2 right-2"
@@ -11,7 +11,7 @@
       <i class="ri-edit-line"></i>
     </app-button>
     <app-button
-      (click)="navigateToDashboad()"
+      [routerLink]="['/dashboard']"
       routerLinkActive="router-link-active"
       color="dark"
       class="w-[40px] h-[40px] absolute top-2 right-8"

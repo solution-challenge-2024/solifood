@@ -11,7 +11,7 @@ import { NoDataComponent } from "../../components/no-data/no-data.component";
 import { TagsInputComponent } from "../../components/tags-input/tags-input.component";
 import { BasketService } from "../../core/services/basket.service";
 import { BasketComponent } from "../../shared/basket/basket.component";
-import { Router } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { Basket } from "../../core/models/basket";
 import { Auth } from "@angular/fire/auth";
 
@@ -29,6 +29,7 @@ import { Auth } from "@angular/fire/auth";
     LoadingComponent,
     InfiniteScrollModule,
     NoDataComponent,
+    RouterLink,
   ],
   templateUrl: "./profil.component.html",
 })
