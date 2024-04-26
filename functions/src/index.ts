@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { onRequest } from "firebase-functions/v2/https";
 
+import { onDocumentCreated } from "firebase-functions/v2/firestore";
+
 import * as express from "express";
 import * as admin from "firebase-admin";
 import * as cors from "cors";
@@ -100,3 +102,34 @@ app.post("/webhook", async (req: Request, res: Response) => {
 });
 
 export const api = onRequest(app);
+
+export const createBasket = onDocumentCreated("baskets/{basketId}", (event) => {
+  if (!event.data) {
+    return;
+  }
+
+  // Get only the needed fields
+  const basket = event.data.data() as Basket;
+  const data = {
+    id: event.params.basketId,
+    available: basket.available,
+    expiredAt: basket.expiredAt.seconds,
+    createdAt: basket.createdAt.seconds,
+    location: basket.location,
+    title: basket.title,
+    description: basket.description,
+    ingredients: basket.ingredients,
+    tags: basket.tags,
+  };
+
+  // Send the basket data to the search API
+  fetch(process.env.SEARCH_API + "/add-baskets", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      baskets: [data],
+    }),
+  });
+});
