@@ -162,4 +162,42 @@ export class BasketService {
 
     return baskets;
   }
+
+  async searchBasketsByAudio(
+    audio: Blob,
+    type: string = "audio/wav",
+  ): Promise<{ query: string; baskets: Basket[] }> {
+    const formData = new FormData();
+    formData.append("file", audio);
+    formData.append("type", type);
+
+    try {
+      // Get basket IDs from the search API
+      const response = await fetch(environment.searchAPI + "/search-by-audio", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+      const basketIds = data.ids;
+
+      if (basketIds.length === 0) {
+        return { query: data.query, baskets: [] };
+      }
+
+      // Get baskets
+      const qry = query(this.basketsCollection, where("id", "in", basketIds));
+      const basketsSnapshots = await getDocs(qry);
+      const baskets = basketsSnapshots.docs.map((doc) => doc.data() as Basket);
+
+      return {
+        query: data.query,
+        baskets,
+      };
+    } catch (error) {
+      return {
+        query: "",
+        baskets: [],
+      };
+    }
+  }
 }

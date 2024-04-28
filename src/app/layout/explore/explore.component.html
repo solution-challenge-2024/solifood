@@ -22,8 +22,15 @@
           <button
             type="button"
             class="absolute inset-y-0 end-0 flex items-center pe-3"
+            (click)="recording ? voiceSearch() : startRecording()"
           >
-            <i class="ri-mic-line text-gray-500 hover:text-gray-900"></i>
+            <i
+              [class]="
+                recording
+                  ? 'ri-record-circle-line text-red-500 hover:text-red-900'
+                  : 'ri-mic-line text-gray-500 hover:text-gray-900'
+              "
+            ></i>
           </button>
         </div>
         <button

@@ -50,6 +50,10 @@ export class ExploreComponent implements OnInit {
     tags: [],
   };
 
+  mediaRecorder: MediaRecorder | null = null;
+  recording = false;
+  chunks: Blob[] = [];
+
   mapOptions: MapOptions = {
     layers: [
       tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -90,6 +94,7 @@ export class ExploreComponent implements OnInit {
 
   async loadBaskets() {
     // Get last result to start after
+    this.storage.basketsState.endReached = false;
     const basketsCount = this.storage.basketsState.baskets.length;
     const lastResult =
       basketsCount > 0
@@ -151,6 +156,7 @@ export class ExploreComponent implements OnInit {
   async searchBaskets() {
     if (!this.searchQuery) return;
     this.basketsLoading = true;
+    this.storage.basketsState.endReached = false;
 
     // Reset baskets
     this.storage.basketsState.baskets = [];
@@ -159,6 +165,7 @@ export class ExploreComponent implements OnInit {
     this.storage.basketsState.baskets = await this.basket.searchBaskets(
       this.searchQuery,
     );
+    this.storage.basketsState.endReached = true;
     this.plotBasketsOnMap();
     this.basketsLoading = false;
     this.isSearchMode = true;
@@ -168,6 +175,8 @@ export class ExploreComponent implements OnInit {
     this.searchQuery = "";
     this.isSearchMode = false;
     this.basketsLoading = true;
+    this.recording = false;
+    this.chunks = [];
 
     // Reset baskets
     this.storage.basketsState.baskets = [];
@@ -176,6 +185,56 @@ export class ExploreComponent implements OnInit {
     await this.loadBaskets();
     this.plotBasketsOnMap();
     this.basketsLoading = false;
+  }
+
+  async startRecording() {
+    this.recording = true;
+
+    if (navigator.mediaDevices) {
+      navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then((stream) => {
+          this.mediaRecorder = new MediaRecorder(stream);
+          this.mediaRecorder.start();
+          this.mediaRecorder.ondataavailable = (e) => {
+            this.chunks.push(e.data);
+          };
+        })
+        .catch((err) => {
+          console.error(`The following error occurred: ${err}`);
+        });
+    }
+  }
+
+  async voiceSearch() {
+    if (!this.mediaRecorder) return;
+    this.basketsLoading = true;
+    this.storage.basketsState.endReached = false;
+    this.mediaRecorder.stop();
+
+    // Reset baskets
+    this.storage.basketsState.baskets = [];
+
+    this.mediaRecorder.onstop = async () => {
+      // Get baskets ID from the search API
+      const result = await this.basket.searchBasketsByAudio(
+        new Blob(this.chunks, { type: "audio/mpeg" }),
+        "audio/mpeg",
+      );
+
+      console.log(result);
+
+      this.storage.basketsState.baskets = result.baskets;
+      this.searchQuery = result.query;
+
+      this.plotBasketsOnMap();
+
+      this.basketsLoading = false;
+      this.storage.basketsState.endReached = true;
+      this.isSearchMode = true;
+      this.recording = false;
+      this.mediaRecorder = null;
+    };
   }
 
   filterBaskets() {
