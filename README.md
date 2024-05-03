@@ -6,10 +6,11 @@ SoliFood is a web application developed by a team from ENSET Mohammedia and GDSC
 
 ## Features
 
-- **User-Friendly Interface**: Built using the Angular framework, SoliFood provides an intuitive platform for sellers to post surplus food items and for buyers to browse and purchase meals.
-- **Scalability**: Leveraging Firebase, SoliFood is scalable to accommodate a growing user base without compromising performance.
+- **User-Friendly Interface**: Built using Angular and Progressive Web App (PWA) technologies, SoliFood offers a smooth and intuitive user experience across various devices and platforms. Whether accessing the application from a desktop browser or a mobile device, users can expect consistent performance and functionality.
+- **Security and Scalability**: Firebase's robust suite of tools ensures that SoliFood remains secure and scalable as it grows. From user authentication and authorization to real-time database management, Firebase provides the necessary infrastructure to support SoliFood's evolving needs while safeguarding user data..
 - **Environmental Impact**: By reducing food waste, SoliFood contributes to environmental sustainability while addressing hunger.
-
+- **Advanced Search**: SoliFood's standout feature is its advanced search functionality, powered by Google Cloud's speech-to-text API and enhanced by semantic search with Gemini embeddings. This allows users to find precise meal matches based on their preferences, significantly reducing the time and effort required to discover suitable recipes.
+  
 ## Getting Started
 
 To run SoliFood locally, follow these steps:
