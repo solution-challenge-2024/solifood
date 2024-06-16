@@ -15,7 +15,7 @@ SoliFood is a web application developed by a team from ENSET Mohammedia and GDSC
 
 To run SoliFood locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/your-username/SoliFood.git`
+1. Clone the repository: `git clone https://github.com/solution-challenge-2024/solifood.git`
 2. Install dependencies: `npm install`
 3. Set up Firebase:
    - Create a Firebase project and set up authentication, Firestore, and Firebase Storage.
